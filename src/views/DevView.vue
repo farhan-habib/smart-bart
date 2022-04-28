@@ -1,7 +1,6 @@
+<!-- vbase-3-setup -->
 <template>
-	<div class="about">
-		<h1>This is an about page</h1>
-	</div>
+	<h1>Dev Page</h1>
 </template>
 
 <script setup>
@@ -9,5 +8,3 @@
 
 <style lang="scss" scoped>
 </style>
-
-
