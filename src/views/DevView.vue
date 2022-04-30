@@ -8,10 +8,11 @@
 
 <script setup>
 import bartMap from "@/components/map.vue";
-let Bart = require("@/scripts/public/bart");
-let bartClient = new Bart();
 
-bartClient.init();
+//bart client
+// let Bart = require("@/scripts/public/bart");
+// let bartClient = new Bart();
+// bartClient.init();
 </script>
 
 <style lang="scss" scoped>
