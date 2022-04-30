@@ -4,6 +4,10 @@
 </template>
 
 <script setup>
+let Bart = require("@/scripts/public/bart");
+let bartClient = new Bart();
+
+bartClient.init();
 </script>
 
 <style lang="scss" scoped>
