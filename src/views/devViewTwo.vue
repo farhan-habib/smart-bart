@@ -5,6 +5,10 @@
 
 <script setup>
 (async () => {
+	const { Graph } = require("@/scripts/public/utils/graph/");
+
+	let bartRouteGraph = new Graph();
+
 	//bart client
 	let Bart = require("@/scripts/public/bart");
 	let bartClient = new Bart();
