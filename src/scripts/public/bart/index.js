@@ -54,6 +54,15 @@ class Bart {
         console.log("Bart API Wrapper Initialized");
         return true;
     }
+
+
+	getStations() {
+		return this.#database.stations;
+	}
+
+	getRoutes() {
+		return this.#database.routes;
+	}
 }
 
 module.exports = Bart;
