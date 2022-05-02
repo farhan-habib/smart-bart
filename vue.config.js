@@ -6,7 +6,7 @@ module.exports = defineConfig({
 		plugins: [
 		require('unplugin-vue-components/webpack')({ 
 			resolvers: [require('unplugin-vue-components/resolvers').PrimeVueResolver({ /* options */ })],
-			dts: true,
+			dts: false,
 			dirs: "src/components"	
 		}),
 		],
