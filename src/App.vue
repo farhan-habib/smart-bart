@@ -20,19 +20,8 @@
 import { ref } from 'vue';
 let checked = ref(false);
 let isLightMode = ref(true);
-// let ss = document.createElement("link");
-// ss.rel = "stylesheet";
-// ss.type = "text/css";
-// ss.href = "STYLES.CSS";
-// document.head.appendChild(ss);
-// function swapTheme() {
-// 	isLightMode.value = !isLightMode.value;
-// 	ss.href = isLightMode.value ? "STYLES.CSS" : "STYLES_DARK.CSS";
-// }
-
-
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 #app {
 	font-family: Avenir, Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
