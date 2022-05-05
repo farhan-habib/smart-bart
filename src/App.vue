@@ -19,6 +19,14 @@ let navBarItems = ref([
 		icon: 'pi pi-fw pi-cog',
 		to: "/settings",
 	},
+	{
+		seperator: true,
+	},
+	{
+		label: "Dev",
+		icon: "pi pi-fw pi-code",
+		to: "/dev"
+	}
 
 ]);
 </script>
