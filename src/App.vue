@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { RouterLink, RouterView } from "vue-router";
 
 let navBarItems = ref([
@@ -12,13 +12,20 @@ let navBarItems = ref([
 		label: "About",
 		icon: 'pi pi-fw pi-info-circle',
 		to: "/about"
-	}
+	},
+
+	{
+		label: "Settings",
+		icon: 'pi pi-fw pi-cog',
+		to: "/settings",
+	},
+
 ]);
 </script>
 
 <template>
 	<header>
-		<TabMenu :model="navBarItems" />
+		<TabMenu v-model:model="navBarItems" />
 	</header>
 	<RouterView />
 </template>
