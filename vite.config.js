@@ -1,15 +1,27 @@
-import { fileURLToPath, URL } from 'url'
+import { fileURLToPath, URL } from "url";
 
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import vueJsx from '@vitejs/plugin-vue-jsx'
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import vueJsx from "@vitejs/plugin-vue-jsx";
+
+import Components from "unplugin-vue-components/vite";
+import { PrimeVueResolver } from "unplugin-vue-components/resolvers";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), vueJsx()],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  }
-})
+	plugins: [
+		vue(),
+		vueJsx(),
+		Components({
+			resolvers: [PrimeVueResolver()],
+			extensions: ["vue"],
+			dts: false,
+			dirs: "",
+		}),
+	],
+	resolve: {
+		alias: {
+			"@": fileURLToPath(new URL("./src", import.meta.url)),
+		},
+	},
+});
