@@ -1,5 +1,8 @@
-<script setup>
+<template>
+    <div class="bartMap" id="bartMap" ref="bartMap"></div>
+</template>
 
+<script setup>
 import "leaflet/dist/leaflet.css";
 import L, { map } from "leaflet";
 import { onMounted, nextTick } from "@vue/runtime-core";
@@ -15,7 +18,6 @@ function setupLeafletMap() {
 
 
 function createLeafletTileLayers() {
-    //https://stackoverflow.com/questions/33343881/leaflet-in-google-maps
     let googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
         maxZoom: 20,
         subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
@@ -42,25 +44,9 @@ onMounted(() => {
         setupLeafletMap();
     });
 });
-
-
 </script>
-<template>
-    <h1>Dev Page</h1>
-    <div bartMapContainer class="w-24rem h-24rem" style="background-color:gray">
-        <!-- <BartMap /> -->
-        <div class="bartMap" id="bartMap" ref="bartMap"></div>
-    </div>
-</template>
-
-<style lang="scss">
-.bartMapContainer {
-
-
-    width: 500px;
-    height: 500px;
-}
-
+    
+<style lang="scss" scoped>
 .bartMap {
     width: 100%;
     height: 100%;
