@@ -1,9 +1,11 @@
 <script setup>
-
+import { userThemeSettings } from "@/stores/theme.js";
 import "leaflet/dist/leaflet.css";
 import L, { map } from "leaflet";
 import { onMounted, nextTick } from "@vue/runtime-core";
 import { ref } from "vue";
+
+const user = userThemeSettings();
 
 function setupLeafletMap() {
     const mapDiv = L.map("bartMap").setView(L.latLng(37, -122), 17);
@@ -47,6 +49,8 @@ onMounted(() => {
 </script>
 <template>
     <h1>Dev Page</h1>
+    <Button label="swap" @click="user.isDarkMode = user.isDarkMode * -1" />
+    {{ user.isDarkMode }}
     <div bartMapContainer class="w-24rem h-24rem" style="background-color:gray">
         <!-- <BartMap /> -->
         <div class="bartMap" id="bartMap" ref="bartMap"></div>
