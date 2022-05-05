@@ -31,5 +31,5 @@ let navBarItems = ref([
 </template>
 
 <style lang="scss">
-@import "@/assets/base.scss";
+@import "@/styles/base.scss";
 </style>
