@@ -1,0 +1,9 @@
+{
+	"compilerOptions": {
+		"paths": {
+			"@/*": ["src/*"]
+		},
+		"experimentalDisableTemplateSupport": true,
+		"jsx": "preserve"
+	}
+}
