@@ -1,2 +1,12 @@
 //normalizes css to look the same across multiple browsers
 @import url("@/assets/imported/normalize.css");
+@import url("./themes/md-dark-indigo/theme.css");
+body {
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background-color: var(--surface-ground);
+	font-family: var(--font-family);
+	font-weight: 400;
+	color: var(--text-color);
+}
