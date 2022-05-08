@@ -5,11 +5,11 @@ import { useStyleTag } from '@vueuse/core';
 import { userThemeSettings } from "@/stores/theme.js";
 
 
-if (false) {
-	import("@/styles/themes/md-dark-indigo/theme.css");
-} else {
-	import("@/styles/themes/md-light-indigo/theme.css");
-}
+// if (false) {
+// 	import("@/styles/themes/md-dark-indigo/theme.css");
+// } else {
+// 	import("@/styles/themes/md-light-indigo/theme.css");
+// }
 
 // import DarkModeTheme from "@/styles/themes/md-dark-indigo/theme.css?raw";
 // import LightModeTheme from "@/styles/themes/md-light-indigo/theme.css?raw";

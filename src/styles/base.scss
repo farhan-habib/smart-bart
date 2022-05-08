@@ -6,7 +6,9 @@
 //https://www.primefaces.org/primeflex/theming
 @import "primeflex/primeflex.scss";
 
-// @import url("./themes/md-dark-indigo/theme.css");
+//handles the overengineered, horribly buggy theme switcher
+//credit to omri#1999 on discord for helping me set this up
+@import "./handleThemes.scss";
 body {
 	height: 100%;
 	overflow-x: hidden;

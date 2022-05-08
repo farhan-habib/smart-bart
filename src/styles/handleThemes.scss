@@ -1,0 +1,25 @@
+// This supports users with JS disabled.
+@import "primevue/resources/themes/md-light-indigo/theme"
+	(prefers-color-scheme: light);
+// This supports users with JS disabled.
+@import "primevue/resources/themes/md-dark-indigo/theme"
+	(prefers-color-scheme: dark);
+
+// Styles for when light mode is enabled or no mode is specified.
+[theme="md-light"] {
+	@import "primevue/resources/themes/md-light-indigo/theme";
+}
+
+[theme="md-dark"] {
+	@import "primevue/resources/themes/md-dark-indigo/theme";
+}
+
+[theme="lara-dark"] {
+	@import "primevue/resources/themes/lara-dark-blue/theme";
+}
+
+[theme="lara-light"] {
+	@import "primevue/resources/themes/lara-light-blue/theme";
+}
+
+//New themes must be put in the form of `[theme="theme-name"]{@import ""}` as shown above
