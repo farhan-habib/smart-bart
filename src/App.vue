@@ -54,6 +54,11 @@ let navBarItems = ref([
 		label: "Dev",
 		icon: "pi pi-fw pi-code",
 		to: "/dev"
+	},
+	{
+		label: "DevTwo",
+		icon: "pi pi-fw pi-code",
+		to: "/dev2"
 	}
 
 ]);
