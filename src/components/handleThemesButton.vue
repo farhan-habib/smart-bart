@@ -16,6 +16,7 @@
 </template>
 
 <script setup>
+// import Vue from 'vue';
 import { useColorMode } from '@vueuse/core';
 import { useCycleList } from '@vueuse/core';
 
@@ -27,16 +28,14 @@ import { useCycleList } from '@vueuse/core';
 // });
 
 
-const modes = ['md-dark', 'lara-dark', 'lara-light', 'md-light'];
+// const modes = ['md-dark', 'lara-dark', 'lara-light', 'md-light'];
+const modes = ['md-dark', 'md-light'];
 const mode = useColorMode({
 	attribute: 'theme',
 	modes: { ...modes.reduce((a, v) => ({ ...a, [v]: v }), {}) },
 	//horrible one liner of code, basically turns an array of [a, b, c] into {a:a, b:b, c:c}
 	//https://stackoverflow.com/a/36388401
 });
-
-
-const { next } = useCycleList(modes, { initialValue: mode })
 
 
 </script>
