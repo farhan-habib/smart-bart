@@ -1,27 +1,27 @@
 {
-  "name": "smart-bart",
-  "version": "0.0.0",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview --port 5050"
-  },
-  "dependencies": {
-    "@vueuse/core": "^8.4.2",
-    "leaflet": "^1.8.0",
-    "pinia": "^2.0.13",
-    "postcss-scss": "^4.0.4",
-    "primeflex": "^3.1.3",
-    "primeicons": "^5.0.0",
-    "primevue": "^3.12.6",
-    "vue": "^3.2.33",
-    "vue-router": "^4.0.14"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-vue": "^2.3.1",
-    "@vitejs/plugin-vue-jsx": "^1.3.10",
-    "sass": "^1.51.0",
-    "unplugin-vue-components": "^0.19.3",
-    "vite": "^2.9.5"
-  }
+	"name": "smart-bart",
+	"version": "0.0.0",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview --port 5050"
+	},
+	"dependencies": {
+		"@vueuse/core": "^8.4.2",
+		"leaflet": "^1.8.0",
+		"pinia": "^2.0.13",
+		"primeflex": "^3.1.3",
+		"primeicons": "^5.0.0",
+		"primevue": "^3.12.6",
+		"vue": "^3.2.33",
+		"vue-router": "^4.0.14"
+	},
+	"devDependencies": {
+		"postcss-scss": "^4.0.4",
+		"@vitejs/plugin-vue": "^2.3.1",
+		"@vitejs/plugin-vue-jsx": "^1.3.10",
+		"sass": "^1.51.0",
+		"unplugin-vue-components": "^0.19.3",
+		"vite": "^2.9.5"
+	}
 }
