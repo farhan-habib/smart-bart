@@ -5,6 +5,9 @@ import { useStyleTag } from '@vueuse/core';
 import { userThemeSettings } from "@/stores/theme.js";
 
 
+
+userThemeSettings();
+
 // if (false) {
 // 	import("@/styles/themes/md-dark-indigo/theme.css");
 // } else {
