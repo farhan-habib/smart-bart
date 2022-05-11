@@ -64,5 +64,5 @@ class Bart {
 	}
 }
 
-// module.exports = Bart;
+
 export default Bart;
