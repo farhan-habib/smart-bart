@@ -15,6 +15,10 @@ const allBartStations = ref([
 	{ name: 'United States', code: 'US' }
 ]);
 
+function findRoute(){
+console.log("Home Route");
+console.log(selectedBartStation.value);
+}
 
 </script>
 
@@ -48,7 +52,10 @@ const allBartStations = ref([
 
 		</main>
 		<router-link to="/dev">View Stations on Map</router-link>
-		<button type="submit">Find Best Route</button>
+		<div>
+		<Button label="Search for the best route" @click="findRoute($event)"/>
+		</div>
+		<!-- <button type="submit">Find Best Route</button> -->
 	</view>
 
 </template>
