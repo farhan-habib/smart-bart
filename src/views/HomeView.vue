@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue";
+
 const selectedBartStation = ref();
 const allBartStations = ref([
 	{ name: 'Australia', code: 'AU' },
@@ -23,6 +24,7 @@ const allBartStations = ref([
 			{{ selectedBartStation }}
 			<Dropdown v-model="selectedBartStation" :options="allBartStations" optionLabel="name" :filter="true"
 				placeholder="Starting Station" :showClear="true">
+				
 				<template #value="bartStation">
 					<div class="country-item country-item-value" v-if="bartStation.value">
 						<!-- <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" /> -->
