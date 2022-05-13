@@ -7,9 +7,10 @@ class Graph{
     * @param label - the label attached to the node
     */
     static gnode = class{
-        constructor(label){
+        constructor(label, isTransfer){
             this.label = label;
-            this.transfers = []
+            this.isTransfer = isTransfer
+
         }
     }
     /*
@@ -20,10 +21,12 @@ class Graph{
     * @param weight - the weight of the edge
     */
     static gedge = class{
-        constructor(start,end,weight){
+        constructor(start,end,weight,color,direction){
             this.start = start;
             this.end = end; 
             this.weight = parseInt(weight);
+            this.color = color;
+            this.direction = direction
         }
     }
     /*
@@ -45,11 +48,12 @@ class Graph{
         if(typeof this.edges[edge.start]== "undefined"){
             this.edges[edge.start] = []
         }
-        this.edges[edge.start].push({start: edge.start, end: edge.end, weight: edge.weight, direction: edge.direction, color: edge.color, route: edge.route})
+        this.edges[edge.start].push({start: edge.start, end: edge.end, weight: edge.weight, direction: edge.direction, color: edge.color})
     }
     djikstras(start,end){
         let costs={};
         let backtrace = {};
+        let backcosts = {};
         let mh = new MinHeap(function comparator(a,b){
             if(a != null && b!= null){
                 if(a[1] < b[1]){
@@ -76,14 +80,25 @@ class Graph{
         mh.add([start,0])
         while(mh.isEmpty()!=true){
             let shortest = mh.remove()
-       
+            let transferfee = 0
             let currstation = shortest[0]
             for(let i = 0; i < this.edges[currstation].length;i++){
                 let neighbor = this.edges[currstation][i]
+                for(let j = 0; j < this.nodes.length; j++){
+              
+                    if(this.nodes[j].label == currstation){
+                        
+                        if(this.nodes[j].isTransfer == true){
+                            transferfee = 1
+                        }
+                    }
+                }
                 let cost= costs[currstation] + neighbor.weight;
+                console.log(cost)
                 if(cost < costs[neighbor.end]){
                     costs[neighbor.end] = cost;
                     backtrace[neighbor.end] = currstation
+                    backcosts[neighbor.end] = cost + transferfee
                     mh.add([neighbor.end,costs])
                 
                 }
@@ -92,11 +107,13 @@ class Graph{
         }
         let path = [end]
         let last = end
+        let totalcost = 0
         while (last != start){
             path.unshift(backtrace[last])
+            totalcost = totalcost+ + backcosts[last]
             last = backtrace[last]
         }
-        console.log(path)
+        console.log(path,totalcost)
        
     }
     /*

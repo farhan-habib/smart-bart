@@ -1,25 +1,27 @@
 <script setup>
 	import { Graph } from "@/scripts/public/utils/graph.js";
 	import Bart from "@/scripts/public/bart"
-
 (async () => {
-
 let bartRouteGraph = new Graph();
-
 	//bart client
 	let bartClient = new Bart();
 	await bartClient.init();
-
-
-
 	let stations = bartClient.getStations();
 	let i = 0;
+	let istransfer = false;
 	let transferstations = ["MCAR","19TH","COLS","BAYF","BALB"]
 	while(stations[i]){
-		let graphnode = new Graph.gnode(stations[i].abbr)
+		istransfer = false
+		for(let j = 0; j < transferstations.length; j++){
+			if(transferstations[j] == stations[i].abbr){
+				istransfer = true
+			}
+		}
+		let graphnode = new Graph.gnode(stations[i].abbr,istransfer)
 		bartRouteGraph.addNode(graphnode) // adds every station to node array in graph
 		i++
 	}
+	console.log(bartRouteGraph.nodes)
 	let routes = bartClient.getRoutes();
 	let j = 0; 
 	let start = null
@@ -31,7 +33,6 @@ let bartRouteGraph = new Graph();
 		
 		let route = routes[j].name
 		for(let i = 0; i < endpoints.length; i++){ // looks at direct edges (i.e. no transfers)
-
 			let start = endpoints[i]
 			let end = endpoints[i+1] // edge immediately after
 			let graphedge = new Graph.gedge(start,end,0) // weight is 0 because weight represents transfers & it is direct
@@ -39,7 +40,6 @@ let bartRouteGraph = new Graph();
 		}
 		j++
 	}
-
 	//console.log("GRAPH",bartRouteGraph.nodes)
 	// figuring out transfers
 	let count = 0
@@ -79,7 +79,7 @@ let bartRouteGraph = new Graph();
 			 
 		 }
 	 }
-	bartRouteGraph.djikstras("SBRN","SHAY")
+	bartRouteGraph.djikstras("ROCK","DUBL")
 	 /*for(let x = 0; x < routes.length; x++){
 		 let currname= routes[x].name;
 		 let currroute = routes[x].config.station
@@ -89,7 +89,6 @@ let bartRouteGraph = new Graph();
 	 //console.log(transferstations)
 })();
 // friendly reminder: npm run serve to start up webpage to look at stuff :)
-
 </script>
 
 <template>
