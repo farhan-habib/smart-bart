@@ -41,11 +41,15 @@ let navBarItems = ref([
     icon: "pi pi-fw pi-info-circle",
     to: "/about",
   },
-
   {
     label: "Settings",
     icon: "pi pi-fw pi-cog",
     to: "/settings",
+  },
+  {
+	label: "Find Route",
+	icon: "pi pi-fw pi-map",
+	to: "/findRoute",
   },
   {
     seperator: true,

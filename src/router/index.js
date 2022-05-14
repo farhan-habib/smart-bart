@@ -26,6 +26,11 @@ const router = createRouter({
 			component: () => import("../views/SettingsView.vue"),
 		},
 		{
+			path: "/findRoute",
+			name: "FindRoute",
+			component: () => import("../views/FindRoute.vue"),
+		},
+		{
 			path: "/dev",
 			name: "Development 1",
 			// route level code-splitting
