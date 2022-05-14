@@ -92,6 +92,7 @@ function findRoute() {
 </template>
 
 <style lang="scss" scoped>
+//credit to primevue for this class
 .card {
 	background-color: var(--surface-card);
 	padding: 1.5rem;
