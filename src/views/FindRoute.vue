@@ -23,71 +23,79 @@ function findRoute() {
 </script>
 
 <template>
+
 	<div>Debug:</div>
 	{{ selectedBartStations }}
 
 	<div></div>
 
-	<div class="grid m-8">
-		<div class="col-12 md:col-6">
-			<div class="card">
-				<!-- From station -->
-				<div class="field col">
-		
-					<Dropdown v-model="selectedBartStations.from" :options="allBartStations" optionLabel="name"
-						:filter="true" placeholder="Starting Station" :showClear="true">
-						<template #value="bartStation">
-							<div class="country-item country-item-value" v-if="bartStation.value">
-								<!-- <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" /> -->
-								<div>{{ bartStation.value.name }}</div>
-								<!-- the thing shown in the box when the item is selected -->
-							</div>
-							<span v-else>
-								<!-- The content shown when no option is selected, defined as placeholder property of DropDown element -->
-								{{ bartStation.placeholder }}
-							</span>
-						</template>
-						<template #option="slotProps">
-							<div class="bartStation-item">
-								<!-- the thing shown in the actual dropdown menu -->
-								<!-- <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" /> -->
-								<div>{{ slotProps.option.name }}</div>
-							</div>
-						</template>
-					</Dropdown>
+	<div class="container-md">
+		<div class="row">
+			<div class="col-12 col-md-6">
+				<div class="card">
+					<!-- From station -->
+					<div class="field col">
+
+						<Dropdown v-model="selectedBartStations.from" :options="allBartStations" optionLabel="name"
+							:filter="true" placeholder="Starting Station" :showClear="true">
+							<template #value="bartStation">
+								<div class="country-item country-item-value" v-if="bartStation.value">
+									<!-- <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" /> -->
+									<div>{{ bartStation.value.name }}</div>
+									<!-- the thing shown in the box when the item is selected -->
+								</div>
+								<span v-else>
+									<!-- The content shown when no option is selected, defined as placeholder property of DropDown element -->
+									{{ bartStation.placeholder }}
+								</span>
+							</template>
+							<template #option="slotProps">
+								<div class="bartStation-item">
+									<!-- the thing shown in the actual dropdown menu -->
+									<!-- <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" /> -->
+									<div>{{ slotProps.option.name }}</div>
+								</div>
+							</template>
+						</Dropdown>
+					</div>
+					<div class="field col">
+
+						<!-- To Station -->
+						<Dropdown v-model="selectedBartStations.to" :options="allBartStations" optionLabel="name"
+							:filter="true" placeholder="Ending Station" :showClear="true">
+							<template #value="bartStation">
+								<div class="bartStation-item bartStation-item-value" v-if="bartStation.value">
+									<!-- <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" /> -->
+									<div>{{ bartStation.value.name }}</div>
+									<!-- the thing shown in the box when the item is selected -->
+								</div>
+								<span v-else>
+									<!-- The content shown when no option is selected, defined as placeholder property of DropDown element -->
+									{{ bartStation.placeholder }}
+								</span>
+							</template>
+							<template #option="slotProps">
+								<div class="bartStation-item">
+									<!-- the thing shown in the actual dropdown menu -->
+									<!-- <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" /> -->
+									<div>{{ slotProps.option.name }}</div>
+								</div>
+							</template>
+						</Dropdown>
+
+					</div>
+
 				</div>
-				<div class="field col">
+			</div>
 
-					<!-- To Station -->
-					<Dropdown v-model="selectedBartStations.to" :options="allBartStations" optionLabel="name"
-						:filter="true" placeholder="Ending Station" :showClear="true">
-						<template #value="bartStation">
-							<div class="bartStation-item bartStation-item-value" v-if="bartStation.value">
-								<!-- <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" /> -->
-								<div>{{ bartStation.value.name }}</div>
-								<!-- the thing shown in the box when the item is selected -->
-							</div>
-							<span v-else>
-								<!-- The content shown when no option is selected, defined as placeholder property of DropDown element -->
-								{{ bartStation.placeholder }}
-							</span>
-						</template>
-						<template #option="slotProps">
-							<div class="bartStation-item">
-								<!-- the thing shown in the actual dropdown menu -->
-								<!-- <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" /> -->
-								<div>{{ slotProps.option.name }}</div>
-							</div>
-						</template>
-					</Dropdown>
-
+			<div id="bartMapContainer" class="col-12 col-md-6">
+				<div style="height:0;width:100%;padding-bottom:100%;background-color:red">
+					<div>
+						<bartMap id="bartMap"></bartMap>
+					</div>
 				</div>
 
 			</div>
-		</div>
-		
-		<div class="col-12 md:col-6 min-w-min h-auto h-30rem">
-			<bartMap></bartMap>
 		</div>
 	</div>
 </template>
@@ -107,9 +115,26 @@ function findRoute() {
 	}
 }
 
-.p-dropdown {
 
+#bartMap{
+	width:100%;
+	min-height:20em;
+	height:auto;
+}
+// #bartMapContainer {
+// 	// height:100%;
+// 	// width: 100%;
+// 	// height:auto;
+// 	// width:auto;
+// 	// min-height: 20em;
+// 	// min-width: 20em;
+// 	height:10em;
+// 	width:10em;
+// }
+
+.p-dropdown {
 	width: 100%;
+
 	& {
 		text-align: left;
 	}
