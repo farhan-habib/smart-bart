@@ -12,10 +12,10 @@ function findRoute() {
 	// user hasn't selected both an origin AND a destination station
 	if (!selectedBartStations.value.from || !selectedBartStations.value.to) {
 		Swal.fire({
-			icon: 'error',
-			title: 'Oops...',
-			text: 'You need to pick an origin and destination station!',
-		})
+			icon: "error",
+			title: "Oops...",
+			text: "You need to pick an origin and destination station!",
+		});
 		return;
 	}
 }
@@ -23,13 +23,14 @@ let bartMapElem = ref();
 function testFunction() {
 	console.log(bartClient.bartClient.getStations());
 }
-
-
 </script>
+<template>
+	<div class="container-md">
+		<div class="row">
+			<div class="col-12 col-md-6">
 				<div class="card">
 					<!-- From station -->
 					<div class="field col">
-
 						<Dropdown v-model="selectedBartStations.from" :options="allBartStations" optionLabel="name"
 							:filter="true" placeholder="Starting Station" :showClear="true">
 							<template #value="bartStation">
@@ -44,16 +45,15 @@ function testFunction() {
 								</span>
 							</template>
 							<template #option="slotProps">
-	<div class="bartStation-item">
-		<!-- the thing shown in the actual dropdown menu -->
-		<!-- <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" /> -->
-		<div>{{ slotProps.option.name }}</div>
-	</div>
-</template>
+								<div class="bartStation-item">
+									<!-- the thing shown in the actual dropdown menu -->
+									<!-- <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" /> -->
+									<div>{{ slotProps.option.name }}</div>
+								</div>
+							</template>
 						</Dropdown>
 					</div>
 					<div class="field col">
-
 						<!-- To Station -->
 						<Dropdown v-model="selectedBartStations.to" :options="allBartStations" optionLabel="name"
 							:filter="true" placeholder="Ending Station" :showClear="true">
@@ -76,31 +76,22 @@ function testFunction() {
 								</div>
 							</template>
 						</Dropdown>
-
 					</div>
 				</div>
-
 
 				<div class="card">
 					<div class="field col">
 						<Button class="btn btn-primary" @click="findRoute">Find Route</Button>
 					</div>
 				</div>
-
-
 			</div>
+
 			<div id="bartMapContainer" class="col-12 col-md-6">
-				<!-- <div style="height:0;width:100%;padding-bottom:100%;background-color:red"> -->
-				<!-- <div> -->
-				<!-- <div id="bartMap" style="background-color:blue"></div> -->
 				<bartMap ref="bartMapElem" id="bartMap"></bartMap>
-				<!-- </div> -->
-				<!-- </div> -->
 
 			</div>
 		</div>
 	</div>
-
 	<Button label="Test" @click="testFunction" />
 </template>
 
@@ -112,7 +103,8 @@ function testFunction() {
 	color: var(--surface-900);
 	margin-bottom: 1rem;
 	border-radius: 12px;
-	box-shadow: 0px 3px 5px rgba(0, 0, 0, .02), 0px 0px 2px rgba(0, 0, 0, .05), 0px 1px 4px rgba(0, 0, 0, .08) !important;
+	box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.02), 0px 0px 2px rgba(0, 0, 0, 0.05),
+		0px 1px 4px rgba(0, 0, 0, 0.08) !important;
 
 	&.card-w-title {
 		padding-bottom: 2rem;
@@ -122,7 +114,6 @@ function testFunction() {
 #bartUserInputGrid {
 	margin-top: 2em;
 }
-
 
 #bartMap {
 	height: 0;
