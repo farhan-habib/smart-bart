@@ -10,7 +10,7 @@ const user = userThemeSettings();
 let mapDiv;
 
 function setupLeafletMap() {
-	mapDiv = L.map("bartMap").setView(L.latLng(37.7749, 122.4194), 17);
+	mapDiv = L.map("bartMap").setView(L.latLng(37.8044, -122.4194), 17);
 	L.tileLayer(`https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`, { maxZoom: 20 }).addTo(mapDiv);
 }
 
