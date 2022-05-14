@@ -21,12 +21,24 @@ function findRoute() {
 }
 let bartMapElem = ref();
 function testFunction() {
-	console.log(bartClient.bartClient.getStations());
+
+	bartClient.bartClient.getStations().map(m => bartMapElem.value.addMarker({
+		name: m.name,
+		desc: m.abbr,
+		loc: [m.gtfs_latitude, m.gtfs_longitude],
+	}));
+	// bartMapElem.value.addMarker({
+	// 	name: "LocationName",
+	// 	desc: "location description",
+	// 	loc: [37.8044, -122.4194],
+	// });
+	// console.log(bartClient.bartClient.getStations());
 }
 </script>
 <template>
 	<div class="container-md">
 		<div class="row">
+			<!-- user controls -->
 			<div class="col-12 col-md-6">
 				<div class="card">
 					<!-- From station -->
@@ -88,7 +100,6 @@ function testFunction() {
 
 			<div id="bartMapContainer" class="col-12 col-md-6">
 				<bartMap ref="bartMapElem" id="bartMap"></bartMap>
-
 			</div>
 		</div>
 	</div>
