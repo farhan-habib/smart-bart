@@ -18,31 +18,35 @@ createLeafletTileLayers().addTo(mapDiv);
 
 function createLeafletTileLayers() {
 
-return L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
-		maxZoom: 20,
-		subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-	});
+return L.tileLayer(`https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`, {
+	maxZoom:20,
+})
 
-//just for testing
+// return L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+// 		maxZoom: 20,
+// 		subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+// 	});
 
-	//https://stackoverflow.com/questions/33343881/leaflet-in-google-maps
-	let googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
-		maxZoom: 20,
-		subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-	});
-	let googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
-		maxZoom: 20,
-		subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-	});
-	let googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-		maxZoom: 20,
-		subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-	});
-	let googleTerrain = L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
-		maxZoom: 20,
-		subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-	});
-	return { googleStreets, googleHybrid, googleSat, googleTerrain };
+// //just for testing
+
+// 	//https://stackoverflow.com/questions/33343881/leaflet-in-google-maps
+// 	let googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+// 		maxZoom: 20,
+// 		subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+// 	});
+// 	let googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+// 		maxZoom: 20,
+// 		subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+// 	});
+// 	let googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+// 		maxZoom: 20,
+// 		subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+// 	});
+// 	let googleTerrain = L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
+// 		maxZoom: 20,
+// 		subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+// 	});
+// 	return { googleStreets, googleHybrid, googleSat, googleTerrain };
 }
 
 
