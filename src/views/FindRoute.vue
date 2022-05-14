@@ -24,12 +24,12 @@ function findRoute() {
 
 <template>
 
-	<div>Debug:</div>
-	{{ selectedBartStations }}
+	<!-- <div>Debug:</div>
+	{{ selectedBartStations }} -->
 
-	<div></div>
+	<!-- <div></div> -->
 
-	<div class="container-md">
+	<div id="bartUserInputGrid" class="container-md">
 		<div class="row">
 			<div class="col-12 col-md-6">
 				<div class="card">
@@ -115,7 +115,9 @@ function findRoute() {
 		padding-bottom: 2rem;
 	}
 }
-
+#bartUserInputGrid{
+	margin-top:2em;
+}
 
 #bartMap{
 	height:0;width:100%;padding-bottom:100%;
@@ -126,16 +128,6 @@ function findRoute() {
 	// // min-height:50em;
 	// height:auto;
 }
-// #bartMapContainer {
-// 	// height:100%;
-// 	// width: 100%;
-// 	// height:auto;
-// 	// width:auto;
-// 	// min-height: 20em;
-// 	// min-width: 20em;
-// 	height:10em;
-// 	width:10em;
-// }
 
 .p-dropdown {
 	width: 100%;

@@ -10,13 +10,21 @@ const user = userThemeSettings();
 function setupLeafletMap() {
 	const mapDiv = L.map("bartMap").setView(L.latLng(37, -122), 17);
 
-	L.control.layers(createLeafletTileLayers()).addTo(mapDiv);
-
+	// L.control.layers(createLeafletTileLayers()).addTo(mapDiv);
+createLeafletTileLayers().addTo(mapDiv);
 	return mapDiv;
 }
 
 
 function createLeafletTileLayers() {
+
+return L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+		maxZoom: 20,
+		subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+	});
+
+//just for testing
+
 	//https://stackoverflow.com/questions/33343881/leaflet-in-google-maps
 	let googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
 		maxZoom: 20,
