@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from "vue";
-
 const selectedBartStations = ref({from: null, to: null});
 const allBartStations = ref([
 	{ name: 'Australia', code: 'AU' },
@@ -19,14 +18,15 @@ function findRoute(){
 console.log("Home Route");
 console.log(selectedBartStations.value);
 }
-
+// console.log("here");
 </script>
 
 <template>
-			Debug:<div></div>
+			<div id="test">Debug:</div>
 			{{ selectedBartStations}}
 
 			<div></div>
+			<!-- From station -->
 			<Dropdown v-model="selectedBartStations.from" :options="allBartStations" optionLabel="name" :filter="true"
 				placeholder="Starting Station" :showClear="true">
 				
@@ -50,8 +50,18 @@ console.log(selectedBartStations.value);
 					</div>
 				</template>
 			</Dropdown>
+			
 </template>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
+#test{
+	color: red
+}
+.p-dropdown {
+	width: 17rem,
+	&{	
+		text-align: left;
+	}
+}
 </style>
