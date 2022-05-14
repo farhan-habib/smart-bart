@@ -1,11 +1,11 @@
 class Bart {
-	#utils = {
+	_utils = {
 		createUrl: (endpoint, command, options) => {
-			let url = `${this.#config.BASE_URL}${endpoint}.aspx?`;
+			let url = `${this._config.BASE_URL}${endpoint}.aspx?`;
 			url += new URLSearchParams({
 				...{
 					cmd: command,
-					key: this.#config.API_KEY,
+					key: this._config.API_KEY,
 					json: "y",
 				},
 				...options,
@@ -16,53 +16,52 @@ class Bart {
 			return await fetch(url).then((res) => res.json());
 		},
 	};
-	#config = {
+	_config = {
 		initalized: false,
 	};
-	// #endpoints = require("./endpoints.js");
-	#database = {};
+	// _endpoints = require("./endpoints.js");
+	_database = {};
 	constructor(API_KEY = "MW9S-E7SL-26DU-VV8V") {
-		this.#config.API_KEY = API_KEY;
-		this.#config.BASE_URL = "https://api.bart.gov/api/";
+		this._config.API_KEY = API_KEY;
+		this._config.BASE_URL = "https://api.bart.gov/api/";
 	}
 	async init() {
-		if (this.#config.initalized) {
+		if (this._config.initalized) {
 			throw new Error(
 				"Bart API wrapper is either already initalized or is currently undergoing the initialization process."
 			);
 			return false;
 		}
-		this.#config.initalized = true;
+		this._config.initalized = true;
 		//get information on all stations
 		console.log("Fetching station information...");
 		let stations = (
-			await this.#utils.getData(this.#utils.createUrl("stn", "stns"))
+			await this._utils.getData(this._utils.createUrl("stn", "stns"))
 		).root.stations.station;
-		this.#database.stations = stations;
+		this._database.stations = stations;
 		//get information on all routes
 		console.log("Fetching route information...");
 		let routes = (
-			await this.#utils.getData(
-				this.#utils.createUrl("route", "routeinfo", {
+			await this._utils.getData(
+				this._utils.createUrl("route", "routeinfo", {
 					route: "all",
 				})
 			)
 		).root.routes.route;
-		this.#database.routes = routes;
-		console.log(this.#database);
+		this._database.routes = routes;
+		console.log(this._database);
 
 		console.log("Bart API Wrapper Initialized");
 		return true;
 	}
 
 	getStations() {
-		return this.#database.stations;
+		return this._database.stations;
 	}
 
 	getRoutes() {
-		return this.#database.routes;
+		return this._database.routes;
 	}
 }
-
 
 export default Bart;

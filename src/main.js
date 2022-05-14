@@ -14,6 +14,7 @@ import "primeicons/primeicons.css";
 import "bootstrap/dist/css/bootstrap-grid.css";
 import "bootstrap";
 
+import "sweetalert2/src/sweetalert2.scss";
 const app = createApp(App);
 
 app.use(createPinia());

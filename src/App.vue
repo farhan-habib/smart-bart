@@ -3,31 +3,13 @@ import { ref, onMounted } from "vue";
 import { RouterLink, RouterView } from "vue-router";
 import { useStyleTag } from "@vueuse/core";
 import { userThemeSettings } from "@/stores/theme.js";
+import { GlobalBartClient } from "./stores/bartStore";
 
 
-
+//initializing some global properties with pinia
+GlobalBartClient();
 userThemeSettings();
 
-// if (false) {
-// 	import("@/styles/themes/md-dark-indigo/theme.css");
-// } else {
-// 	import("@/styles/themes/md-light-indigo/theme.css");
-// }
-
-// import DarkModeTheme from "@/styles/themes/md-dark-indigo/theme.css?raw";
-// import LightModeTheme from "@/styles/themes/md-light-indigo/theme.css?raw";
-
-// // import DarkModeTheme from "@/styles/darkThemeTest.css?raw";
-// // import LightModeTheme from "@/styles/lightThemeTest.css?raw";
-
-// const user = userThemeSettings();
-// const userStyle = useStyleTag(user.isDarkMode ? DarkModeTheme : LightModeTheme);
-
-// user.$subscribe((mutation, state) => {
-// 	userStyle.css.value = state.isDarkMode ? DarkModeTheme : LightModeTheme;
-// 	userStyle.load();
-// 	console.log(userStyle.css.value);
-// });
 
 // import darkMode from "@/styles/"
 let navBarItems = ref([

@@ -1,37 +1,31 @@
 <script setup>
 import { ref } from "vue";
 import bartMap from "../components/bartMap.vue";
+import { GlobalBartClient } from "../stores/bartStore";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+
+let bartClient = GlobalBartClient();
 const selectedBartStations = ref({ from: null, to: null });
-const allBartStations = ref([
-	{ name: "Australia", code: "AU" },
-	{ name: "Brazil", code: "BR" },
-	{ name: "China", code: "CN" },
-	{ name: "Egypt", code: "EG" },
-	{ name: "France", code: "FR" },
-	{ name: "Germany", code: "DE" },
-	{ name: "India", code: "IN" },
-	{ name: "Japan", code: "JP" },
-	{ name: "Spain", code: "ES" },
-	{ name: "United States", code: "US" },
-]);
+const allBartStations = ref(bartClient.bartClient.getStations());
 
 function findRoute() {
-	console.log("Home Route");
-	console.log(selectedBartStations.value);
+	// user hasn't selected both an origin AND a destination station
+	if (!selectedBartStations.value.from || !selectedBartStations.value.to) {
+		Swal.fire({
+			icon: 'error',
+			title: 'Oops...',
+			text: 'You need to pick an origin and destination station!',
+		})
+		return;
+	}
 }
-// console.log("here");
+let bartMapElem = ref();
+function testFunction() {
+	console.log(bartClient.bartClient.getStations());
+}
+
+
 </script>
-
-<template>
-
-	<!-- <div>Debug:</div>
-	{{ selectedBartStations }} -->
-
-	<!-- <div></div> -->
-
-	<div id="bartUserInputGrid" class="container-md">
-		<div class="row">
-			<div class="col-12 col-md-6">
 				<div class="card">
 					<!-- From station -->
 					<div class="field col">
@@ -50,12 +44,12 @@ function findRoute() {
 								</span>
 							</template>
 							<template #option="slotProps">
-								<div class="bartStation-item">
-									<!-- the thing shown in the actual dropdown menu -->
-									<!-- <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" /> -->
-									<div>{{ slotProps.option.name }}</div>
-								</div>
-							</template>
+	<div class="bartStation-item">
+		<!-- the thing shown in the actual dropdown menu -->
+		<!-- <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" /> -->
+		<div>{{ slotProps.option.name }}</div>
+	</div>
+</template>
 						</Dropdown>
 					</div>
 					<div class="field col">
@@ -84,21 +78,30 @@ function findRoute() {
 						</Dropdown>
 
 					</div>
-
 				</div>
-			</div>
 
+
+				<div class="card">
+					<div class="field col">
+						<Button class="btn btn-primary" @click="findRoute">Find Route</Button>
+					</div>
+				</div>
+
+
+			</div>
 			<div id="bartMapContainer" class="col-12 col-md-6">
 				<!-- <div style="height:0;width:100%;padding-bottom:100%;background-color:red"> -->
-					<!-- <div> -->
-					<!-- <div id="bartMap" style="background-color:blue"></div> -->
-						<bartMap id="bartMap"></bartMap>
-					<!-- </div> -->
+				<!-- <div> -->
+				<!-- <div id="bartMap" style="background-color:blue"></div> -->
+				<bartMap ref="bartMapElem" id="bartMap"></bartMap>
+				<!-- </div> -->
 				<!-- </div> -->
 
 			</div>
 		</div>
 	</div>
+
+	<Button label="Test" @click="testFunction" />
 </template>
 
 <style lang="scss" scoped>
@@ -115,12 +118,16 @@ function findRoute() {
 		padding-bottom: 2rem;
 	}
 }
-#bartUserInputGrid{
-	margin-top:2em;
+
+#bartUserInputGrid {
+	margin-top: 2em;
 }
 
-#bartMap{
-	height:0;width:100%;padding-bottom:100%;
+
+#bartMap {
+	height: 0;
+	width: 100%;
+	padding-bottom: 100%;
 	// padding:0;
 	// margin:0;
 	// width:100%;
