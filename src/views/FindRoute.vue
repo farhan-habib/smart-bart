@@ -89,11 +89,12 @@ function findRoute() {
 			</div>
 
 			<div id="bartMapContainer" class="col-12 col-md-6">
-				<div style="height:0;width:100%;padding-bottom:100%;background-color:red">
-					<div>
+				<!-- <div style="height:0;width:100%;padding-bottom:100%;background-color:red"> -->
+					<!-- <div> -->
+					<!-- <div id="bartMap" style="background-color:blue"></div> -->
 						<bartMap id="bartMap"></bartMap>
-					</div>
-				</div>
+					<!-- </div> -->
+				<!-- </div> -->
 
 			</div>
 		</div>
@@ -117,9 +118,13 @@ function findRoute() {
 
 
 #bartMap{
-	width:100%;
-	min-height:20em;
-	height:auto;
+	height:0;width:100%;padding-bottom:100%;
+	// padding:0;
+	// margin:0;
+	// width:100%;
+	// height:100%;
+	// // min-height:50em;
+	// height:auto;
 }
 // #bartMapContainer {
 // 	// height:100%;

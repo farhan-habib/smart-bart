@@ -53,8 +53,9 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .bartMap {
-	width: 100%;
+	
 	height:100%;
+	width:100%;
 	// border: 10px solid #000;
 }
 </style>
