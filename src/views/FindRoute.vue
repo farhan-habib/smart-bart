@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue";
+import bartMap from "../components/bartMap.vue";
 const selectedBartStations = ref({ from: null, to: null });
 const allBartStations = ref([
 	{ name: "Australia", code: "AU" },
@@ -85,8 +86,8 @@ function findRoute() {
 			</div>
 		</div>
 		
-		<div class="col-12 md:col-6">
-			
+		<div class="col-12 md:col-6 min-w-min h-auto h-30rem">
+			<bartMap></bartMap>
 		</div>
 	</div>
 </template>
