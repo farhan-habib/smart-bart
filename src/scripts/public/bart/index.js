@@ -26,33 +26,35 @@ class Bart {
 		this._config.BASE_URL = "https://api.bart.gov/api/";
 	}
 	async init() {
-		if (this._config.initalized) {
-			throw new Error(
-				"Bart API wrapper is either already initalized or is currently undergoing the initialization process."
-			);
-			return false;
-		}
-		this._config.initalized = true;
-		//get information on all stations
-		console.log("Fetching station information...");
-		let stations = (
-			await this._utils.getData(this._utils.createUrl("stn", "stns"))
-		).root.stations.station;
-		this._database.stations = stations;
-		//get information on all routes
-		console.log("Fetching route information...");
-		let routes = (
-			await this._utils.getData(
-				this._utils.createUrl("route", "routeinfo", {
-					route: "all",
-				})
-			)
-		).root.routes.route;
-		this._database.routes = routes;
-		console.log(this._database);
+		return new Promise(async (resolve, reject) => {
+			if (this._config.initalized) {
+				throw new Error(
+					"Bart API wrapper is either already initalized or is currently undergoing the initialization process."
+				);
+				reject(false);
+			}
+			this._config.initalized = true;
+			//get information on all stations
+			console.log("Fetching station information...");
+			let stations = (
+				await this._utils.getData(this._utils.createUrl("stn", "stns"))
+			).root.stations.station;
+			this._database.stations = stations;
+			//get information on all routes
+			console.log("Fetching route information...");
+			let routes = (
+				await this._utils.getData(
+					this._utils.createUrl("route", "routeinfo", {
+						route: "all",
+					})
+				)
+			).root.routes.route;
+			this._database.routes = routes;
+			console.log(this._database);
 
-		console.log("Bart API Wrapper Initialized");
-		return true;
+			console.log("Bart API Wrapper Initialized");
+			resolve(true);
+		});
 	}
 
 	getStations() {
