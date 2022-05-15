@@ -14,7 +14,7 @@ bartClient.bartClientIsInitialized.then(function () {
 
 
 const selectedBartStations = ref({ from: null, to: null });
-const allBartStations = ref(bartClient.bartClient.getStations());
+const allBartStations = ref(bartClient.bartClient._database.stations);
 
 function findRoute() {
 	// user hasn't selected both an origin AND a destination station
@@ -29,17 +29,17 @@ function findRoute() {
 }
 let bartMapElem = ref();
 function testFunction() {
-	console.log(bartMapElem.value.test);
-	bartClient.bartClient.getStations().map(m => bartMapElem.value.addMarker({
-		name: m.name,
-		desc: m.abbr,
-		loc: [m.gtfs_latitude, m.gtfs_longitude],
-	}));
-	// console.log(bartClient.bartClient.getStations());
+	// console.log(bartMapElem.value.test);
+	// bartClient.bartClient.getStations().map(m => bartMapElem.value.addMarker({
+	// 	name: m.name,
+	// 	desc: m.abbr,
+	// 	loc: [m.gtfs_latitude, m.gtfs_longitude],
+	// }));
 }
 
 </script>
 <template>
+	{{ bartClient.bartClient._database.stations }}
 	<div v-if="!bartClientInitialized">
 		<ProgressBar mode="indeterminate" />
 	</div>
@@ -51,8 +51,9 @@ function testFunction() {
 					<BlockUI :blocked="!bartClientInitialized">
 						<!-- From station -->
 						<div class="field col">
+							<!-- unsure of why but if I set :options to a ref it doesnt work, but when I directly set it to this it does work. -->
 							<Dropdown class="stationSelectorMenu" v-model="selectedBartStations.from"
-								:options="allBartStations" optionLabel="name" :filter="true"
+								:options="bartClient.bartClient._database.stations" optionLabel="name" :filter="true"
 								placeholder="Starting Station" :showClear="true">
 								<template #value="bartStation">
 									<div class="country-item country-item-value" v-if="bartStation.value">
@@ -77,7 +78,7 @@ function testFunction() {
 						<div class="field col">
 							<!-- To Station -->
 							<Dropdown class="stationSelectorMenu" v-model="selectedBartStations.to"
-								:options="allBartStations" optionLabel="name" :filter="true"
+								:options="bartClient.bartClient._database.stations" optionLabel="name" :filter="true"
 								placeholder="Ending Station" :showClear="true">
 								<template #value="bartStation">
 									<div class="bartStation-item bartStation-item-value" v-if="bartStation.value">
