@@ -49,25 +49,13 @@ onMounted(() => {
 </script>
 <template>
 	<h1>Dev Page</h1>
-	<Button label="swap" @click="user.isDarkMode = !user.isDarkMode" />
-	{{ user.isDarkMode }}
-	<div bartMapContainer class="w-24rem h-24rem" style="background-color:gray">
-		<!-- <BartMap /> -->
 		<div class="bartMap" id="bartMap" ref="bartMap"></div>
-	</div>
 </template>
 
 <style lang="scss">
-.bartMapContainer {
-
-
-	width: 500px;
-	height: 500px;
-}
-
 .bartMap {
-	width: 100%;
-	height: 100%;
-	border: 10px solid #000;
+	width: 100em;
+	height: 10em;
+	// border: 10px solid #000;
 }
 </style>

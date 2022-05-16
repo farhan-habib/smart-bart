@@ -1,7 +1,11 @@
 <script setup>
 	import { Graph } from "@/scripts/public/utils/graph.js";
 	import Bart from "@/scripts/public/bart"
+import { GlobalBartClient } from "@/stores/bartStore";
 
+	let bartClient = GlobalBartClient();
+
+	console.log(bartClient.bartClient.getStations());
 (async () => {
 
 let bartRouteGraph = new Graph();
