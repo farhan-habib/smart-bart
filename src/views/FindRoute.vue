@@ -66,8 +66,8 @@ function testFunction2() {
 	<div v-if="!bartClientInitialized">
 		<ProgressBar mode="indeterminate" />
 	</div>
-	<Dialog header="Your Route" v-model:visible="userRouteDisplayManager.displayModal" :maximizable="true"
-		:modal="true">
+	<Dialog class="userRoutesDisplayDialog" header=" Your Route" v-model:visible="userRouteDisplayManager.displayModal"
+		:maximizable="true" :dismissableMask="true" :modal="true">
 		<p class="m-0">{{ userRouteDisplayManager.route }}</p>
 		<template #footer>
 			<!-- <Button label="No" icon="pi pi-times" @click="userRouteDisplayManager.hideRoutes" class="p-button-text" /> -->
