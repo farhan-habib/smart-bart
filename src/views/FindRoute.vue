@@ -3,6 +3,24 @@ import { ref } from "vue";
 import bartMap from "../components/bartMap.vue";
 import { GlobalBartClient } from "../stores/bartStore";
 import Swal from "sweetalert2/dist/sweetalert2.js";
+import routeFindingAlgorithm from "@/scripts/public/routeFindingAlgorithm";
+
+
+let userRouteDisplayManager = ref({
+	route: null,
+	displayModal: false,
+	setRoute(route) {
+		this.route = route;
+	},
+	showRoutes: function () {
+		this.displayModal = true;
+	},
+	hideRoutes: function () {
+		this.displayModal = false;
+	}
+});
+
+
 
 let bartClient = GlobalBartClient();
 let bartClientInitialized = ref(false);
@@ -26,23 +44,37 @@ function findRoute() {
 		});
 		return;
 	}
+	console.log(routeFindingAlgorithm({ bartStations: bartClient.bartClient._database.stations, bartRoutes: bartClient.bartClient._database.routes }, selectedBartStations.value.from.abbr, selectedBartStations.value.to.abbr));
+	//show routes to user
+	userRouteDisplayManager.value.setRoute(routeFindingAlgorithm({ bartStations: bartClient.bartClient._database.stations, bartRoutes: bartClient.bartClient._database.routes }, selectedBartStations.value.from.abbr, selectedBartStations.value.to.abbr));
+	userRouteDisplayManager.value.showRoutes();
 }
 let bartMapElem = ref();
 function testFunction() {
-	// console.log(bartMapElem.value.test);
-	// bartClient.bartClient.getStations().map(m => bartMapElem.value.addMarker({
-	// 	name: m.name,
-	// 	desc: m.abbr,
-	// 	loc: [m.gtfs_latitude, m.gtfs_longitude],
-	// }));
+	console.log(routeFindingAlgorithm({ bartStations: bartClient.bartClient._database.stations, bartRoutes: bartClient.bartClient._database.routes }, selectedBartStations.value.from.abbr, selectedBartStations.value.to.abbr));
+}
+
+function testFunction2() {
+	console.log(userRouteDisplayManager.value)
 }
 
 </script>
 <template>
-	{{ bartClient.bartClient._database.stations }}
+
+	{{ selectedBartStations }}
+	<!-- {{ bartClient.bartClient._database.stations }} -->
 	<div v-if="!bartClientInitialized">
 		<ProgressBar mode="indeterminate" />
 	</div>
+	<Dialog class="userRoutesDisplayDialog" header=" Your Route" v-model:visible="userRouteDisplayManager.displayModal"
+		:maximizable="true" :dismissableMask="true" :modal="true">
+		<p class="m-0">{{ userRouteDisplayManager.route }}</p>
+		<template #footer>
+			<!-- <Button label="No" icon="pi pi-times" @click="userRouteDisplayManager.hideRoutes" class="p-button-text" /> -->
+			<Button label="Ok" icon="pi pi-check" @click="userRouteDisplayManager.hideRoutes" />
+		</template>
+
+	</Dialog>
 	<div class="container-md">
 		<div class="row">
 			<!-- user controls -->
@@ -115,6 +147,7 @@ function testFunction() {
 		</div>
 	</div>
 	<Button label="Test" @click="testFunction" />
+	<Button label="Test2" @click="testFunction2" />
 </template>
 
 <style lang="scss" scoped>
