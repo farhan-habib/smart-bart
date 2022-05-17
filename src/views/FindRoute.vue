@@ -55,7 +55,12 @@ function testFunction() {
 }
 
 function testFunction2() {
-	console.log(userRouteDisplayManager.value)
+		bartClient.bartClient.getStations().map(m => bartMapElem.value.addMarker({
+		name: m.name,
+		desc: m.abbr,
+		loc: [m.gtfs_latitude, m.gtfs_longitude],
+	}));
+	// console.log(userRouteDisplayManager.value)
 }
 
 </script>
@@ -71,7 +76,7 @@ function testFunction2() {
 		<p class="m-0">{{ userRouteDisplayManager.route }}</p>
 		<template #footer>
 			<!-- <Button label="No" icon="pi pi-times" @click="userRouteDisplayManager.hideRoutes" class="p-button-text" /> -->
-			<Button label="Ok" icon="pi pi-check" @click="userRouteDisplayManager.hideRoutes" />
+			<Button label="Ok" icon="pi pi-check" @click="userRouteDisplayManager.hideRoutes()" />
 		</template>
 
 	</Dialog>
