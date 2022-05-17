@@ -3,6 +3,24 @@ import { ref } from "vue";
 import bartMap from "../components/bartMap.vue";
 import { GlobalBartClient } from "../stores/bartStore";
 import Swal from "sweetalert2/dist/sweetalert2.js";
+import routeFindingAlgorithm from "@/scripts/public/routeFindingAlgorithm";
+
+
+let userRouteDisplayManager = {
+	route: ref(null),
+	displayModal: ref(false),
+	setRoute(route) {
+		this.route.value = route;
+	},
+	showRoutes: () => {
+		userRouteDisplayManager.displayModal.value = true;
+	},
+	hideRoutes: () => {
+		userRouteDisplayManager.displayModal.value = false;
+	}
+}
+
+
 
 let bartClient = GlobalBartClient();
 let bartClientInitialized = ref(false);
@@ -26,23 +44,37 @@ function findRoute() {
 		});
 		return;
 	}
+	econsole.log(routeFindingAlgorithm({ bartStations: bartClient.bartClient._database.stations, bartRoutes: bartClient.bartClient._database.routes }, selectedBartStations.value.from.abbr, selectedBartStations.value.to.abbr));
+	//show routes to user
+	userRouteDisplayManager.setRoute(routeFindingAlgorithm({ bartStations: bartClient.bartClient._database.stations, bartRoutes: bartClient.bartClient._database.routes }, selectedBartStations.value.from.abbr, selectedBartStations.value.to.abbr));
+	userRouteDisplayManager.showRoutes();
 }
 let bartMapElem = ref();
 function testFunction() {
-	// console.log(bartMapElem.value.test);
-	// bartClient.bartClient.getStations().map(m => bartMapElem.value.addMarker({
-	// 	name: m.name,
-	// 	desc: m.abbr,
-	// 	loc: [m.gtfs_latitude, m.gtfs_longitude],
-	// }));
+	console.log(routeFindingAlgorithm({ bartStations: bartClient.bartClient._database.stations, bartRoutes: bartClient.bartClient._database.routes }, selectedBartStations.value.from.abbr, selectedBartStations.value.to.abbr));
+}
+
+function testFunction2() {
+	console.log(userRouteDisplayManager)
 }
 
 </script>
 <template>
-	{{ bartClient.bartClient._database.stations }}
+
+	{{ selectedBartStations }}
+	<!-- {{ bartClient.bartClient._database.stations }} -->
 	<div v-if="!bartClientInitialized">
 		<ProgressBar mode="indeterminate" />
 	</div>
+	<Dialog header="Your Route" v-model:visible="userRouteDisplayManager.displayModal" :style="{ width: '50vw' }"
+		:maximizable="true" :modal="true">
+		<p class="m-0">{{ userRouteDisplayManager.route }}</p>
+		<template #footer>
+			<!-- <Button label="No" icon="pi pi-times" @click="userRouteDisplayManager.hideRoutes" class="p-button-text" /> -->
+			<Button label="Ok" icon="pi pi-check" @click="userRouteDisplayManager.hideRoutes" autofocus />
+		</template>
+
+	</Dialog>
 	<div class="container-md">
 		<div class="row">
 			<!-- user controls -->
@@ -115,6 +147,7 @@ function testFunction() {
 		</div>
 	</div>
 	<Button label="Test" @click="testFunction" />
+	<Button label="Test2" @click="testFunction2" />
 </template>
 
 <style lang="scss" scoped>

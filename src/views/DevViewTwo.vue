@@ -1,99 +1,78 @@
 <script setup>
-	import { Graph } from "@/scripts/public/utils/graph.js";
-	import Bart from "@/scripts/public/bart"
-import { GlobalBartClient } from "@/stores/bartStore";
-
-	let bartClient = GlobalBartClient();
-
-	console.log(bartClient.bartClient.getStations());
+import { Graph } from "@/scripts/public/utils/graph.js";
+import Bart from "@/scripts/public/bart"
 (async () => {
-
-let bartRouteGraph = new Graph();
-
-	//bart client
 	let bartClient = new Bart();
 	await bartClient.init();
-
-
-
-	let stations = bartClient.getStations();
-	let i = 0;
-	let transferstations = ["MCAR","19TH","COLS","BAYF","BALB"]
-	while(stations[i]){
-		let graphnode = new Graph.gnode(stations[i].abbr)
-		bartRouteGraph.addNode(graphnode) // adds every station to node array in graph
-		i++
-	}
-	let routes = bartClient.getRoutes();
-	let j = 0; 
-	let start = null
-	let end = null
-	let weight = 0 
-	while(routes[j]){
-		let endpoints = routes[j].config.station
-			
-		
-		let route = routes[j].name
-		for(let i = 0; i < endpoints.length; i++){ // looks at direct edges (i.e. no transfers)
-
-			let start = endpoints[i]
-			let end = endpoints[i+1] // edge immediately after
-			let graphedge = new Graph.gedge(start,end,0) // weight is 0 because weight represents transfers & it is direct
-			bartRouteGraph.addEdge(graphedge)
+	console.log(getRoute({ bartStations: bartClient.getStations(), bartRoutes: bartClient.getRoutes() }, "MCAR", "BALB"));
+	function getRoute({ bartStations, bartRoutes }, beginningStation, endingStation) {
+		let stations = bartClient.getStations();
+		let bartRouteGraph = new Graph()
+		let i = 0;
+		let istransfer = false;
+		let transferstations = ["MCAR", "19TH", "COLS", "BAYF", "BALB"]
+		while (stations[i]) {
+			istransfer = false
+			for (let j = 0; j < transferstations.length; j++) {
+				if (transferstations[j] == stations[i].abbr) {
+					istransfer = true
+				}
+			}
+			let graphnode = new Graph.gnode(stations[i].abbr, istransfer)
+			bartRouteGraph.addNode(graphnode) // adds every station to node array in graph
+			i++
 		}
-		j++
-	}
-
-	//console.log("GRAPH",bartRouteGraph.nodes)
-	// figuring out transfers
-	let count = 0
-	for(let m = 0; m < routes.length; m++){
-		let route = routes[m]
-		//console.log(route)
-		
-		let stations = []
-		for(let i = 0; i < route.config.station.length; i++){
-			let curr = route.config.station[i]
-		 	//console.log(curr,bartRouteGraph.edges[curr])
-			count ++
+		let routes = bartClient.getRoutes();
+		let j = 0;
+		let start = null
+		let end = null
+		let weight = 0
+		let color = null
+		let direction = null
+		while (routes[j]) {
+			let endpoints = routes[j].config.station
+			let color = routes[j].color
+			let direction = routes[j].direction
+			let route = routes[j].name
+			for (let i = 0; i < endpoints.length; i++) { // looks at direct edges (i.e. no transfers)
+				let start = endpoints[i]
+				let end = endpoints[i + 1] // edge immediately after
+				let graphedge = new Graph.gedge(start, end, 0, color, direction) // weight is 0 because weight represents transfers & it is direct
+				bartRouteGraph.addEdge(graphedge)
+			}
+			j++
 		}
-		//console.log(count)
+		let x = 0
+		let transfertest = {}
+		while (routes[x]) {
+			let endpoints = routes[x].config.station;
+			let color = routes[x].color
+			transfertest[color] = []
+			let direction = routes[x].direction
+			let route = routes[x].name
+			for (let i = 0; i < endpoints.length; i++) {
+				let start = endpoints[i]
+				for (let m = 0; m < transferstations.length; m++) {
+					if (transferstations[m] === start) {
+
+						transfertest[color].push(start)
+					}
+				}
+			}
+			x++
+		}
+		for (let i = 0; i < routes.length; i++) {
+			let color = routes[i].color;
+			let direction = routes[i].direction
+			for (let j = 0; j < transfertest[color].length; j++) {
+				let start = transfertest[color][j]
+				let transferedge = new Graph.gedge(start, start, 1, color, direction)
+				bartRouteGraph.addEdge(transferedge)
+			}
+		}
+		return (bartRouteGraph.djikstras(beginningStation, endingStation))
 	}
-	 for(let i = 0; i < routes.length; i++){
-		let currroute = routes[i].config.station
-		 let currname = routes[i].name
-		 for(let j = 0; j < currroute.length; j++){
-			 let currstation = currroute[j]
-			 for(let k = 0; k < routes.length; k++){
-				 let otherroute = routes[k].config.station
-				 let othername = routes[k].name
-				 for(let x = 0; x < otherroute.length; x++){
-					 if(othername != currname && otherroute[x] == currstation){
-						 for(let q = 0; q < transferstations.length; q++){
-							 		
-							 if(transferstations[q] == currstation){
-								 let graphedge = new Graph.gedge(currstation,currstation,1)
-								 bartRouteGraph.addEdge(graphedge)
-							 }
-						 }
-					 }
-					 
-				 }
-			 }
-			 
-		 }
-	 }
-	bartRouteGraph.djikstras("SBRN","SHAY")
-	 /*for(let x = 0; x < routes.length; x++){
-		 let currname= routes[x].name;
-		 let currroute = routes[x].config.station
-		 console.log(routes.length)
-	 }*/
-	 //console.log(routes)
-	 //console.log(transferstations)
 })();
-// friendly reminder: npm run serve to start up webpage to look at stuff :)
-
 </script>
 
 <template>
