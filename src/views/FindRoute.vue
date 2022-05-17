@@ -6,19 +6,19 @@ import Swal from "sweetalert2/dist/sweetalert2.js";
 import routeFindingAlgorithm from "@/scripts/public/routeFindingAlgorithm";
 
 
-let userRouteDisplayManager = {
-	route: ref(null),
-	displayModal: ref(false),
+let userRouteDisplayManager = ref({
+	route: null,
+	displayModal: false,
 	setRoute(route) {
-		this.route.value = route;
+		this.route = route;
 	},
-	showRoutes: () => {
-		userRouteDisplayManager.displayModal.value = true;
+	showRoutes: function () {
+		this.displayModal = true;
 	},
-	hideRoutes: () => {
-		userRouteDisplayManager.displayModal.value = false;
+	hideRoutes: function () {
+		this.displayModal = false;
 	}
-}
+});
 
 
 
@@ -44,10 +44,10 @@ function findRoute() {
 		});
 		return;
 	}
-	econsole.log(routeFindingAlgorithm({ bartStations: bartClient.bartClient._database.stations, bartRoutes: bartClient.bartClient._database.routes }, selectedBartStations.value.from.abbr, selectedBartStations.value.to.abbr));
+	console.log(routeFindingAlgorithm({ bartStations: bartClient.bartClient._database.stations, bartRoutes: bartClient.bartClient._database.routes }, selectedBartStations.value.from.abbr, selectedBartStations.value.to.abbr));
 	//show routes to user
-	userRouteDisplayManager.setRoute(routeFindingAlgorithm({ bartStations: bartClient.bartClient._database.stations, bartRoutes: bartClient.bartClient._database.routes }, selectedBartStations.value.from.abbr, selectedBartStations.value.to.abbr));
-	userRouteDisplayManager.showRoutes();
+	userRouteDisplayManager.value.setRoute(routeFindingAlgorithm({ bartStations: bartClient.bartClient._database.stations, bartRoutes: bartClient.bartClient._database.routes }, selectedBartStations.value.from.abbr, selectedBartStations.value.to.abbr));
+	userRouteDisplayManager.value.showRoutes();
 }
 let bartMapElem = ref();
 function testFunction() {
@@ -55,7 +55,7 @@ function testFunction() {
 }
 
 function testFunction2() {
-	console.log(userRouteDisplayManager)
+	console.log(userRouteDisplayManager.value)
 }
 
 </script>
@@ -66,12 +66,12 @@ function testFunction2() {
 	<div v-if="!bartClientInitialized">
 		<ProgressBar mode="indeterminate" />
 	</div>
-	<Dialog header="Your Route" v-model:visible="userRouteDisplayManager.displayModal" :style="{ width: '50vw' }"
-		:maximizable="true" :modal="true">
+	<Dialog header="Your Route" v-model:visible="userRouteDisplayManager.displayModal" :maximizable="true"
+		:modal="true">
 		<p class="m-0">{{ userRouteDisplayManager.route }}</p>
 		<template #footer>
 			<!-- <Button label="No" icon="pi pi-times" @click="userRouteDisplayManager.hideRoutes" class="p-button-text" /> -->
-			<Button label="Ok" icon="pi pi-check" @click="userRouteDisplayManager.hideRoutes" autofocus />
+			<Button label="Ok" icon="pi pi-check" @click="userRouteDisplayManager.hideRoutes" />
 		</template>
 
 	</Dialog>
