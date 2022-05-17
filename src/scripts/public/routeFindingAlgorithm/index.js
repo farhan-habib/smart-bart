@@ -1,6 +1,13 @@
 import {
 	Graph
 } from "@/scripts/public/utils/graph.js";
+/*
+* @param bartStations - a list of all of the BART stations
+* @param bartRoutes - a list of all of the BART routes (including names, abbreviations, colors, directions, and the stations on them)
+* @param beginningStation - the station the user is starting at for the path
+* @param endingStation - the station the user is ending at for the path
+* @return returns the shortest path from the beginning to the ending stations as calculated by Djikstra's algorithm
+*/ 
 export default function routeFindingAlgorithm({
 		bartStations,
 		bartRoutes
@@ -16,7 +23,7 @@ export default function routeFindingAlgorithm({
 	while (stations[i]) {
 		istransfer = false;
 		for (let j = 0; j < transferstations.length; j++) {
-			if (transferstations[j] == stations[i].abbr) {
+			if (transferstations[j] == stations[i].abbr) { // evaluates if the current station is a transfer station
 				istransfer = true;
 			}
 		}
@@ -26,15 +33,10 @@ export default function routeFindingAlgorithm({
 	}
 	let routes = bartRoutes;
 	let j = 0;
-	let start = null;
-	let end = null;
-	let weight = 0;
-	let color = null;
-	let direction = null;
 	while (routes[j]) {
-		let endpoints = routes[j].config.station;
-		let color = routes[j].color;
-		let direction = routes[j].direction;
+		let endpoints = routes[j].config.station; // all of the stations on a route
+		let color = routes[j].color; // the color of the route
+		let direction = routes[j].direction; // the direction (North or South) of the route
 		let route = routes[j].name;
 		for (let i = 0; i < endpoints.length; i++) {
 			// looks at direct edges (i.e. no transfers)
@@ -51,13 +53,11 @@ export default function routeFindingAlgorithm({
 		let endpoints = routes[x].config.station;
 		let color = routes[x].color;
 		transfertest[color] = [];
-		let direction = routes[x].direction;
-		let route = routes[x].name;
 		for (let i = 0; i < endpoints.length; i++) {
 			let start = endpoints[i];
 			for (let m = 0; m < transferstations.length; m++) {
 				if (transferstations[m] === start) {
-					transfertest[color].push(start);
+					transfertest[color].push(start); // adds the transfer station on a route to the list of stations on the route
 				}
 			}
 		}
@@ -66,7 +66,7 @@ export default function routeFindingAlgorithm({
 	for (let i = 0; i < routes.length; i++) {
 		let color = routes[i].color;
 		let direction = routes[i].direction;
-		for (let j = 0; j < transfertest[color].length; j++) {
+		for (let j = 0; j < transfertest[color].length; j++) { // every transfer station on a route
 			let start = transfertest[color][j];
 			let transferedge = new Graph.gedge(
 				start,
