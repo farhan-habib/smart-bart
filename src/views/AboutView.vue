@@ -17,22 +17,27 @@ import Fieldset from 'primevue/fieldset';
 		formed in 1957. The initial system opened in stages from 1972 to 1974. The system was extended most
 		recently on June 13, 2020, when Milpitas and Berryessa/North San José stations opened as part of the
 		Silicon Valley BART extension in partnership with the Santa Clara Valley Transportation Authority (VTA).
-		<br>
-		<Button label="Click here for more info" class="p-button-link" />
+		<div></div>
+		<a href="https://bart.gov/">About Bart</a>
 
 	</Fieldset>
 	<Fieldset legend="About SMART BART">
 		SMART BART is a new tool for finding the most efficient route between two chosen BART stations. Once you
 		input your starting and ending station, SMART BART will find the most efficent route in terms of times
 		and transfers between your chosen stations.<br>
-		<Button label="Click here to begin" class="p-button-link" />
+		<div></div>
+		<router-link to="/findRoute" v-slot="{ href, route, navigate }">
+			<Button @click="navigate">
+				Click here to get started
+			</Button>
+		</router-link>
 
 	</Fieldset>
-	<Accordion :multiple="true">
+	<!-- <Accordion :multiple="true">
 		<AccordionTab header="More Info">
 			Content
 		</AccordionTab>
-	</Accordion>
+	</Accordion> -->
 </template>
 
 <style lang="scss">
