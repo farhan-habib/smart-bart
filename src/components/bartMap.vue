@@ -13,7 +13,7 @@ let layers;
 
 let bartIcon = L.icon({
 	iconUrl: busIcon,
-	iconSize: [10, 10],
+	iconSize: [20, 20],
 })
 
 
