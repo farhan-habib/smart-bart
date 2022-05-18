@@ -1,5 +1,4 @@
 <script setup>
-import Accordion from 'primevue/accordion';
 import Button from 'primevue/button';
 import Fieldset from 'primevue/fieldset';
 
@@ -28,11 +27,6 @@ import Fieldset from 'primevue/fieldset';
 		<Button label="Click here to begin" class="p-button-link" />
 
 	</Fieldset>
-	<Accordion :multiple="true">
-		<AccordionTab header="More Info">
-			Content
-		</AccordionTab>
-	</Accordion>
 </template>
 
 <style lang="scss">

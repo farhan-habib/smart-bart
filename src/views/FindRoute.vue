@@ -44,6 +44,14 @@ function findRoute() {
 		});
 		return;
 	}
+	if (selectedBartStations.value.from === selectedBartStations.value.to) {
+		Swal.fire({
+			icon: "error",
+			title: "Oops...",
+			text: "Origin and destination stations cannot be the same!",
+		});
+		return;
+	}
 	console.log(routeFindingAlgorithm({ bartStations: bartClient.bartClient._database.stations, bartRoutes: bartClient.bartClient._database.routes }, selectedBartStations.value.from.abbr, selectedBartStations.value.to.abbr));
 	//show routes to user
 	userRouteDisplayManager.value.setRoute(routeFindingAlgorithm({ bartStations: bartClient.bartClient._database.stations, bartRoutes: bartClient.bartClient._database.routes }, selectedBartStations.value.from.abbr, selectedBartStations.value.to.abbr));
