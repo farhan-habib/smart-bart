@@ -192,7 +192,6 @@ function highlightSelected(station1, station2) {
 	width: 100%;
 	padding-bottom: 100%;
 	border: 8px double var(--surface-border);
-	border-radius: 40px;
 }
 
 .stationSelectorMenu {
