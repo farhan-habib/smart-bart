@@ -33,7 +33,7 @@ bartClient.bartClientIsInitialized.then(function () {
 
 const selectedBartStations = ref({ from: null, to: null });
 
-const allBartStations = ref(bartClient.bartClient._database.stations);
+const allBartStations = ref(bartClient.bartClient.database.stations);
 
 function findRoute() {
 	clearMap();
@@ -56,7 +56,8 @@ function findRoute() {
 		return;
 	}
 	userRouteDisplayManager.value.route = [];
-	for (const stationAbbr of routeFindingAlgorithm({ bartStations: bartClient.bartClient._database.stations, bartRoutes: bartClient.bartClient._database.routes }, selectedBartStations.value.from.abbr, selectedBartStations.value.to.abbr)) {
+
+	for (const stationAbbr of routeFindingAlgorithm({ bartStations: bartClient.bartClient.database.stations, bartRoutes: bartClient.bartClient.database.routes }, selectedBartStations.value.from.abbr, selectedBartStations.value.to.abbr)) {
 		userRouteDisplayManager.value.route.push(bartClient.bartClient.getStationFromAbbr(stationAbbr));
 	}
 
@@ -67,7 +68,7 @@ function findRoute() {
 }
 let bartMapElem = ref();
 // function testFunction() {
-// 	console.log(routeFindingAlgorithm({ bartStations: bartClient.bartClient._database.stations, bartRoutes: bartClient.bartClient._database.routes }, selectedBartStations.value.from.abbr, selectedBartStations.value.to.abbr));
+// 	console.log(routeFindingAlgorithm({ bartStations: bartClient.bartClient.database.stations, bartRoutes: bartClient.bartClient.database.routes }, selectedBartStations.value.from.abbr, selectedBartStations.value.to.abbr));
 // }
 
 function showAllStations() {
@@ -90,7 +91,7 @@ function clearMap() {
 <template>
 
 	<!-- {{ selectedBartStations }} -->
-	<!-- {{ bartClient.bartClient._database.stations }} -->
+	<!-- {{ bartClient.bartClient.database.stations }} -->
 	<div v-if="!bartClientInitialized">
 		<ProgressBar mode="indeterminate" />
 	</div>
@@ -122,7 +123,7 @@ function clearMap() {
 						<div class="field col">
 							<!-- unsure of why but if I set :options to a ref it doesnt work, but when I directly set it to this it does work. -->
 							<Dropdown class="stationSelectorMenu" v-model="selectedBartStations.from"
-								:options="bartClient.bartClient._database.stations" optionLabel="name" :filter="true"
+								:options="bartClient.bartClient.database.stations" optionLabel="name" :filter="true"
 								placeholder="Starting Station" :showClear="true">
 								<template #value="bartStation">
 									<div class="country-item country-item-value" v-if="bartStation.value">
@@ -148,7 +149,7 @@ function clearMap() {
 						<div class="field col">
 							<!-- To Station -->
 							<Dropdown class="stationSelectorMenu" v-model="selectedBartStations.to"
-								:options="bartClient.bartClient._database.stations" optionLabel="name" :filter="true"
+								:options="bartClient.bartClient.database.stations" optionLabel="name" :filter="true"
 								placeholder="Ending Station" :showClear="true">
 								<template #value="bartStation">
 									<div class="bartStation-item bartStation-item-value" v-if="bartStation.value">
@@ -198,7 +199,6 @@ function clearMap() {
 	width: 100%;
 	padding-bottom: 100%;
 	border: 8px double var(--surface-border);
-	border-radius: 40px;
 }
 
 .stationSelectorMenu {
