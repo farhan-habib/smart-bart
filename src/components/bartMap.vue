@@ -63,7 +63,7 @@ function drawPolyline(station1, station2, routeArray) {
 		opacity: 0.5,
 		weight: 8,
 		clickable: false
-	}).addTo(mapDiv);
+	}).addTo(mapDiv).bindPopup('best route.');;
 
 	mapDiv.setView(loc1, 12);
 }
