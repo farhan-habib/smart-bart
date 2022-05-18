@@ -47,7 +47,6 @@ class Bart {
 			).root.stations.station;
 			this.database.stations = stations;
 			//get information on all routes
-			// console.log("Fetching route information...");
 			let routes = (
 				await this._utils.getData(
 					this._utils.createUrl("route", "routeinfo", {
@@ -56,9 +55,6 @@ class Bart {
 				)
 			).root.routes.route;
 			this.database.routes = routes;
-			// console.log(this.database);
-
-			// console.log("Bart API Wrapper Initialized");
 			resolve(true);
 		});
 	}

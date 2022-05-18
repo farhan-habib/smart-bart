@@ -49,7 +49,7 @@ export default function routeFindingAlgorithm(
 	let transfertest = {};
 	while (routes[x]) {
 		let endpoints = routes[x].config.station;
-		let color = routes[x].color;
+		let color = routes[x].color; // keeps track of what route it's currently looking at
 		transfertest[color] = [];
 		for (let i = 0; i < endpoints.length; i++) {
 			let start = endpoints[i];
@@ -70,7 +70,7 @@ export default function routeFindingAlgorithm(
 			let transferedge = new Graph.gedge(
 				start,
 				start,
-				1,
+				1, // weight is 1 because there is 1 transfer
 				color,
 				direction
 			);

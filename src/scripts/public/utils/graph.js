@@ -84,7 +84,7 @@ class Graph {
 			}
 		}
 		mh.add([start, 0])
-		while (mh.isEmpty() != true) {
+		while (mh.isEmpty() != true) { // will look at the [node,cost] pair with the lowest cost
 			let shortest = mh.remove()
 			let currstation = shortest[0]
 			for (let i = 0; i < this.edges[currstation].length; i++) { // looks at every edge starting from the current station
