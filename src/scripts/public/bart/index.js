@@ -19,8 +19,8 @@ class Bart {
 	_config = {
 		initalized: false,
 	};
-	// _endpoints = require("./endpoints.js");
-	_database = {};
+
+	database = {};
 	constructor(API_KEY = "MW9S-E7SL-26DU-VV8V") {
 		this._config.API_KEY = API_KEY;
 		this._config.BASE_URL = "https://api.bart.gov/api/";
@@ -39,7 +39,7 @@ class Bart {
 			let stations = (
 				await this._utils.getData(this._utils.createUrl("stn", "stns"))
 			).root.stations.station;
-			this._database.stations = stations;
+			this.database.stations = stations;
 			//get information on all routes
 			console.log("Fetching route information...");
 			let routes = (
@@ -49,8 +49,8 @@ class Bart {
 					})
 				)
 			).root.routes.route;
-			this._database.routes = routes;
-			console.log(this._database);
+			this.database.routes = routes;
+			console.log(this.database);
 
 			console.log("Bart API Wrapper Initialized");
 			resolve(true);
@@ -58,14 +58,14 @@ class Bart {
 	}
 
 	getStations() {
-		return this._database.stations;
+		return this.database.stations;
 	}
 
 	getRoutes() {
-		return this._database.routes;
+		return this.database.routes;
 	}
 	getStationFromAbbr(abbr) {
-		return this._database.stations.find(station => station.abbr === abbr);
+		return this.database.stations.find(station => station.abbr === abbr);
 	}
 }
 
