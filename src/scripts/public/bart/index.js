@@ -29,7 +29,7 @@ class Bart {
 	}
 	/**
 	 * Inititalizes the bart api wrapper
-	 * @returns {Promise<boolean>} returns a Promise that resolves to true or false depending on if the bartclient has been initialized properly 
+	 * @returns {Promise<boolean>} returns a Promise that resolves to true or false depending on if the bartclient has been initialized properly
 	 */
 	async init() {
 		return new Promise(async (resolve, reject) => {
@@ -41,13 +41,13 @@ class Bart {
 			}
 			this._config.initalized = true;
 			//get information on all stations
-			console.log("Fetching station information...");
+			// console.log("Fetching station information...");
 			let stations = (
 				await this._utils.getData(this._utils.createUrl("stn", "stns"))
 			).root.stations.station;
 			this.database.stations = stations;
 			//get information on all routes
-			console.log("Fetching route information...");
+			// console.log("Fetching route information...");
 			let routes = (
 				await this._utils.getData(
 					this._utils.createUrl("route", "routeinfo", {
@@ -56,19 +56,19 @@ class Bart {
 				)
 			).root.routes.route;
 			this.database.routes = routes;
-			console.log(this.database);
+			// console.log(this.database);
 
-			console.log("Bart API Wrapper Initialized");
+			// console.log("Bart API Wrapper Initialized");
 			resolve(true);
 		});
 	}
 	/**
-	 * 
+	 *
 	 * @param {String} abbr The abbreviation of the station you want to get information on
 	 * @returns {Object} Returns an object containing info on the station with the information specified in the bart api
 	 */
 	getStationFromAbbr(abbr) {
-		return this.database.stations.find(station => station.abbr === abbr);
+		return this.database.stations.find((station) => station.abbr === abbr);
 	}
 }
 

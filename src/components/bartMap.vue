@@ -52,7 +52,6 @@ function clearMap() {
  * Adds a marker to the map given a name description and coordinates
  **/
 function addMarker({ name, desc, loc: [lat, lng], }) {
-	console.log(name, desc, lat, lng);
 	const marker = L.marker([lat, lng], { icon: bartIcon }).addTo(mapDiv);
 	marker.addTo(layers);
 	marker.bindPopup(`<b>${name}</b><br>${desc}`);
@@ -71,7 +70,6 @@ function drawPolyline(station1, station2, routeArray) {
 	let end = station2.name;
 
 	let locs = [];
-	console.log(routeArray[1]);
 	for (const item of routeArray) {
 		locs.push([item.gtfs_latitude, item.gtfs_longitude]);
 	}
@@ -101,7 +99,6 @@ defineExpose({
 	addMarker,
 	drawPolyline,
 	clearMap,
-	// testConsole
 });
 
 onMounted(() => {
