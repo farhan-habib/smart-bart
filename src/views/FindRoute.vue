@@ -77,7 +77,7 @@ function showAllStations() {
 }
 
 function highlightSelected(station1, station2) {
-	bartMapElem.value.drawPolyline(station1, station2);
+	bartMapElem.value.drawPolyline(station1, station2, userRouteDisplayManager.value.route);
 }
 
 </script>
