@@ -26,11 +26,11 @@ import Fieldset from 'primevue/fieldset';
 		input your starting and ending station, SMART BART will find the most efficent route in terms of times
 		and transfers between your chosen stations.<br>
 		<div></div>
-		<router-link to="/findRoute" v-slot="{ href, route, navigate }">
-			<Button @click="navigate">
-				Click here to get started
-			</Button>
-		</router-link>
+		<!-- <router-link to="/findRoute" v-slot="{ navigate }"> -->
+		<Button @click="$router.push('/findRoute')">
+			Click here to get started
+		</Button>
+		<!-- </router-link> -->
 
 	</Fieldset>
 	<!-- <Accordion :multiple="true">

@@ -64,6 +64,9 @@ class Bart {
 	getRoutes() {
 		return this._database.routes;
 	}
+	getStationFromAbbr(abbr) {
+		return this._database.stations.find(station => station.abbr === abbr);
+	}
 }
 
 export default Bart;
