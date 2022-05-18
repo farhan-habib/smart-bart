@@ -9,7 +9,7 @@ function openUrl(url) {
 </script>
 <template>
 	<h1>SMART BART</h1>
-	<Fieldset legend="About BART">
+	<Fieldset legend="Learn more about BART">
 		Bay Area Rapid Transit (BART) is a rapid transit system serving the San Francisco Bay Area in
 		California. BART serves 50 stations along six routes on 131 miles of rapid transit lines, including a
 		10mile spur line in eastern Contra Costa County which uses diesel multiple-unit trains and a 3.2 mile
