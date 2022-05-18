@@ -19,12 +19,18 @@ class Bart {
 	_config = {
 		initalized: false,
 	};
-
+	/**
+	 * An object containing data on the stations and routes
+	 */
 	database = {};
 	constructor(API_KEY = "MW9S-E7SL-26DU-VV8V") {
 		this._config.API_KEY = API_KEY;
 		this._config.BASE_URL = "https://api.bart.gov/api/";
 	}
+	/**
+	 * Inititalizes the bart api wrapper
+	 * @returns {Promise<boolean>} returns a Promise that resolves to true or false depending on if the bartclient has been initialized properly 
+	 */
 	async init() {
 		return new Promise(async (resolve, reject) => {
 			if (this._config.initalized) {
@@ -56,14 +62,11 @@ class Bart {
 			resolve(true);
 		});
 	}
-
-	getStations() {
-		return this.database.stations;
-	}
-
-	getRoutes() {
-		return this.database.routes;
-	}
+	/**
+	 * 
+	 * @param {String} abbr The abbreviation of the station you want to get information on
+	 * @returns {Object} Returns an object containing info on the station with the information specified in the bart api
+	 */
 	getStationFromAbbr(abbr) {
 		return this.database.stations.find(station => station.abbr === abbr);
 	}

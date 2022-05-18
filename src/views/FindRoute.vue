@@ -72,7 +72,7 @@ let bartMapElem = ref();
 // }
 
 function showAllStations() {
-	bartClient.bartClient.getStations().map(m => bartMapElem.value.addMarker({
+	bartClient.bartClient.database.stations.map(m => bartMapElem.value.addMarker({
 		name: m.name,
 		desc: m.abbr,
 		loc: [m.gtfs_latitude, m.gtfs_longitude],

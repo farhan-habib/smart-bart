@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { RouterLink, RouterView } from "vue-router";
-import { useStyleTag } from "@vueuse/core";
 import { userThemeSettings } from "@/stores/theme.js";
 import { GlobalBartClient } from "./stores/bartStore";
 

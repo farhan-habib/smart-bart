@@ -1,17 +1,14 @@
-import {
-	Graph
-} from "@/scripts/public/utils/graph.js";
+import { Graph } from "@/scripts/public/utils/graph.js";
 /*
+	Returns a route given an array of stations, an array of routes, a beginning station, and an ending stations
 * @param bartStations - a list of all of the BART stations
 * @param bartRoutes - a list of all of the BART routes (including names, abbreviations, colors, directions, and the stations on them)
 * @param beginningStation - the station the user is starting at for the path
 * @param endingStation - the station the user is ending at for the path
 * @return returns the shortest path from the beginning to the ending stations as calculated by Djikstra's algorithm
-*/ 
-export default function routeFindingAlgorithm({
-		bartStations,
-		bartRoutes
-	},
+*/
+export default function routeFindingAlgorithm(
+	{ bartStations, bartRoutes },
 	beginningStation,
 	endingStation
 ) {
@@ -23,7 +20,8 @@ export default function routeFindingAlgorithm({
 	while (stations[i]) {
 		istransfer = false;
 		for (let j = 0; j < transferstations.length; j++) {
-			if (transferstations[j] == stations[i].abbr) { // evaluates if the current station is a transfer station
+			if (transferstations[j] == stations[i].abbr) {
+				// evaluates if the current station is a transfer station
 				istransfer = true;
 			}
 		}
@@ -66,7 +64,8 @@ export default function routeFindingAlgorithm({
 	for (let i = 0; i < routes.length; i++) {
 		let color = routes[i].color;
 		let direction = routes[i].direction;
-		for (let j = 0; j < transfertest[color].length; j++) { // every transfer station on a route
+		for (let j = 0; j < transfertest[color].length; j++) {
+			// every transfer station on a route
 			let start = transfertest[color][j];
 			let transferedge = new Graph.gedge(
 				start,
