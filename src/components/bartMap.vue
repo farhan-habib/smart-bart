@@ -39,19 +39,26 @@ function addMarker({ name, desc, loc: [lat, lng], }) {
 	// marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
 }
 
-function drawPolyline(station1, station2) {
+function drawPolyline(station1, station2, routeArray) {
 	let loc1 = [station1.gtfs_latitude, station1.gtfs_longitude];
 	let loc2 = [station2.gtfs_latitude, station2.gtfs_longitude];
 	let start = station1.name;
 	let end = station2.name;
 
+	let locs = [];
+	console.log(routeArray[1]);
+	for (const item of routeArray) {
+		locs.push([item.gtfs_latitude, item.gtfs_longitude]);
+	}
+
 	let marker1 = L.marker(loc1).addTo(mapDiv);
 	marker1.bindPopup('<b>Start</b><br />' + start);
 
-	const marker2 = L.marker(loc2).addTo(mapDiv);
+	let marker2 = L.marker(loc2).addTo(mapDiv);
 	marker2.bindPopup('<b>End</b><br />' + end);
 
-	let polyline = new L.Polyline([loc1, loc2], {
+	// the polyline needs to include the station in-between start and end
+	let polyline = new L.Polyline(locs, {
 		color: 'magenta',
 		opacity: 0.5,
 		weight: 8,
