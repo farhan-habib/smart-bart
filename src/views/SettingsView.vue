@@ -6,11 +6,10 @@ const user = userThemeSettings();
 </script>
 
 <template>
-	<h2>Theme</h2>
-	<!-- <ToggleButton v-model="user.isDarkMode" onLabel="Dark mode" offLabel="Light Mode" onIcon="pi pi-moon"
-		offIcon="pi pi-sun" /> -->
-	<HandleThemesButton></HandleThemesButton>
-
+	<div style="text-align:center">
+		<h2>Theme:</h2>
+		<HandleThemesButton></HandleThemesButton>
+	</div>
 </template>
 
 <style lang="scss">
