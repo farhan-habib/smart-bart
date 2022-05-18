@@ -176,6 +176,9 @@ function highlightSelected(station1, station2) {
 			</div>
 
 			<div id="bartMapContainer" class="col-12 col-md-6">
+				<Message severity="info" :life="5000" :sticky="false">The bus icons on the map represent
+					stations! Click on one to
+					find out it's name!</Message>
 				<bartMap ref="bartMapElem" id="bartMap"></bartMap>
 			</div>
 		</div>
@@ -192,7 +195,7 @@ function highlightSelected(station1, station2) {
 	width: 100%;
 	padding-bottom: 100%;
 	border: 8px double var(--surface-border);
-	border-radius: 40px;
+	// border-radius: 40px;
 }
 
 .stationSelectorMenu {
