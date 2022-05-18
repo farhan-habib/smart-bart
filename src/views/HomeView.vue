@@ -19,8 +19,7 @@ import Button from 'primevue/button';
 			</div>
 			<div class="col-12 col-md-6">
 
-				<img id="bartMapImage" src="https://www.ocf.berkeley.edu/~prb/wp-content/uploads/2019/08/Map.png"
-					alt="Image Text" />
+				<img id="bartMapImage" src="@/assets/bartMap.png" alt="Image Text" />
 
 			</div>
 		</div>
