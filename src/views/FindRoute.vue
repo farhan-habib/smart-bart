@@ -36,6 +36,8 @@ const selectedBartStations = ref({ from: null, to: null });
 const allBartStations = ref(bartClient.bartClient._database.stations);
 
 function findRoute() {
+	clearMap();
+
 	// user hasn't selected both an origin AND a destination station
 	if (!selectedBartStations.value.from || !selectedBartStations.value.to) {
 		Swal.fire({
@@ -78,6 +80,10 @@ function showAllStations() {
 
 function highlightSelected(station1, station2) {
 	bartMapElem.value.drawPolyline(station1, station2, userRouteDisplayManager.value.route);
+}
+
+function clearMap() {
+	bartMapElem.value.clearMap();
 }
 
 </script>

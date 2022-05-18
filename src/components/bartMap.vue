@@ -9,7 +9,7 @@ import busIcon from "../assets/bus.png";
 const user = userThemeSettings();
 
 let mapDiv;
-
+let layers;
 
 let bartIcon = L.icon({
 	iconUrl: busIcon,
@@ -23,6 +23,7 @@ function setupLeafletMap() {
 	let zoom = 9;
 
 	mapDiv = L.map('bartMap').setView([lat, lng], zoom);
+	layers = L.layerGroup().addTo(mapDiv);
 
 	//mapDiv = L.map("bartMap").setView(L.latLng(37.8044, -122.4194), 10);
 	//L.tileLayer(`https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`, { maxZoom: 20 }).addTo(mapDiv);
@@ -32,9 +33,15 @@ function setupLeafletMap() {
 
 }
 
+// clear all markers and polylines from map
+function clearMap() {
+	layers.clearLayers();
+}
+
 function addMarker({ name, desc, loc: [lat, lng], }) {
 	console.log(name, desc, lat, lng);
 	const marker = L.marker([lat, lng], { icon: bartIcon }).addTo(mapDiv);
+	marker.addTo(layers);
 	marker.bindPopup(`<b>${name}</b><br>${desc}`);
 	// marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
 }
@@ -53,9 +60,11 @@ function drawPolyline(station1, station2, routeArray) {
 
 	let marker1 = L.marker(loc1).addTo(mapDiv);
 	marker1.bindPopup('<b>Start</b><br />' + start);
+	marker1.addTo(layers);
 
 	let marker2 = L.marker(loc2).addTo(mapDiv);
 	marker2.bindPopup('<b>End</b><br />' + end);
+	marker2.addTo(layers);
 
 	// the polyline needs to include the station in-between start and end
 	let polyline = new L.Polyline(locs, {
@@ -64,6 +73,7 @@ function drawPolyline(station1, station2, routeArray) {
 		weight: 8,
 		clickable: false
 	}).addTo(mapDiv).bindPopup('best route.');;
+	polyline.addTo(layers);
 
 	mapDiv.setView(loc1, 12);
 }
@@ -72,6 +82,7 @@ function drawPolyline(station1, station2, routeArray) {
 defineExpose({
 	addMarker,
 	drawPolyline,
+	clearMap,
 	// testConsole
 });
 
