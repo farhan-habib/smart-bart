@@ -45,25 +45,39 @@ function findRoute() {
 		});
 		return;
 	}
+	if (selectedBartStations.value.from === selectedBartStations.value.to) {
+		Swal.fire({
+			icon: "error",
+			title: "Oops...",
+			text: "Origin and destination stations cannot be the same!",
+		});
+		return;
+	}
 	userRouteDisplayManager.value.route = [];
 	for (const stationAbbr of routeFindingAlgorithm({ bartStations: bartClient.bartClient._database.stations, bartRoutes: bartClient.bartClient._database.routes }, selectedBartStations.value.from.abbr, selectedBartStations.value.to.abbr)) {
-		userRouteDisplayManager.value.route.push(bartClient.bartClient.getStationFromAbbr(stationAbbr))
+		userRouteDisplayManager.value.route.push(bartClient.bartClient.getStationFromAbbr(stationAbbr));
 	}
 
 	userRouteDisplayManager.value.showRoutes();
+
+	showAllStations();
+	highlightSelected(selectedBartStations.value.from, selectedBartStations.value.to);
 }
 let bartMapElem = ref();
 // function testFunction() {
 // 	console.log(routeFindingAlgorithm({ bartStations: bartClient.bartClient._database.stations, bartRoutes: bartClient.bartClient._database.routes }, selectedBartStations.value.from.abbr, selectedBartStations.value.to.abbr));
 // }
 
-function testFunction2() {
+function showAllStations() {
 	bartClient.bartClient.getStations().map(m => bartMapElem.value.addMarker({
 		name: m.name,
 		desc: m.abbr,
 		loc: [m.gtfs_latitude, m.gtfs_longitude],
 	}));
+}
 
+function highlightSelected(station1, station2) {
+	bartMapElem.value.drawPolyline(station1, station2);
 }
 
 </script>

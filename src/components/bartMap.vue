@@ -39,7 +39,18 @@ function addMarker({ name, desc, loc: [lat, lng], }) {
 	// marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
 }
 
-function drawPolyline(loc1, loc2) {
+function drawPolyline(station1, station2) {
+	let loc1 = [station1.gtfs_latitude, station1.gtfs_longitude];
+	let loc2 = [station2.gtfs_latitude, station2.gtfs_longitude];
+	let start = station1.name;
+	let end = station2.name;
+
+	let marker1 = L.marker(loc1).addTo(mapDiv);
+	marker1.bindPopup('<b>Start</b><br />' + start);
+
+	const marker2 = L.marker(loc2).addTo(mapDiv);
+	marker2.bindPopup('<b>End</b><br />' + end);
+
 	let polyline = new L.Polyline([loc1, loc2], {
 		color: 'magenta',
 		opacity: 0.5,
@@ -47,14 +58,13 @@ function drawPolyline(loc1, loc2) {
 		clickable: false
 	}).addTo(mapDiv).bindPopup('best route.');;
 
+	mapDiv.setView(loc1, 12);
 }
-
-
 
 //https://stackoverflow.com/a/70228978
 defineExpose({
 	addMarker,
-
+	drawPolyline,
 	// testConsole
 });
 
