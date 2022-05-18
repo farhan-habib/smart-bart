@@ -53,9 +53,9 @@ function findRoute() {
 	userRouteDisplayManager.value.showRoutes();
 }
 let bartMapElem = ref();
-function testFunction() {
-	console.log(routeFindingAlgorithm({ bartStations: bartClient.bartClient._database.stations, bartRoutes: bartClient.bartClient._database.routes }, selectedBartStations.value.from.abbr, selectedBartStations.value.to.abbr));
-}
+// function testFunction() {
+// 	console.log(routeFindingAlgorithm({ bartStations: bartClient.bartClient._database.stations, bartRoutes: bartClient.bartClient._database.routes }, selectedBartStations.value.from.abbr, selectedBartStations.value.to.abbr));
+// }
 
 function testFunction2() {
 	bartClient.bartClient.getStations().map(m => bartMapElem.value.addMarker({
@@ -69,7 +69,7 @@ function testFunction2() {
 </script>
 <template>
 
-	{{ selectedBartStations }}
+	<!-- {{ selectedBartStations }} -->
 	<!-- {{ bartClient.bartClient._database.stations }} -->
 	<div v-if="!bartClientInitialized">
 		<ProgressBar mode="indeterminate" />
@@ -153,8 +153,10 @@ function testFunction2() {
 					</BlockUI>
 				</div>
 				<div class="card">
-					<div class="field col">
-						<Button class="btn btn-primary" @click="findRoute">Find Route</Button>
+					<div class="field col text-center">
+						<div class="d-flex justify-content-center">
+							<Button class="btn btn-primary" @click="findRoute">Find Route</Button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -164,8 +166,6 @@ function testFunction2() {
 			</div>
 		</div>
 	</div>
-	<Button label="Test" @click="testFunction" />
-	<Button label="Test2" @click="testFunction2" />
 </template>
 
 <style lang="scss" scoped>
