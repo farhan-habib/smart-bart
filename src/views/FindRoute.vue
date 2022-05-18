@@ -5,13 +5,15 @@ import { GlobalBartClient } from "../stores/bartStore";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import routeFindingAlgorithm from "@/scripts/public/routeFindingAlgorithm";
 
-
 let userRouteDisplayManager = ref({
-	route: null,
+	route: [],
 	displayModal: false,
-	setRoute(route) {
-		this.route = route;
-	},
+	// setRoute: function (route) {
+	// 	this.route = route;
+	// },
+	// getRoute: function () {
+	// 	return this.route;
+	// },
 	showRoutes: function () {
 		this.displayModal = true;
 	},
@@ -20,18 +22,17 @@ let userRouteDisplayManager = ref({
 	}
 });
 
-
-
 let bartClient = GlobalBartClient();
+
 let bartClientInitialized = ref(false);
-console.log(bartClient.bartClientIsInitialized);
+
 bartClient.bartClientIsInitialized.then(function () {
 	//determines if the bart client has loaded or not
 	bartClientInitialized.value = true;
 })
 
-
 const selectedBartStations = ref({ from: null, to: null });
+
 const allBartStations = ref(bartClient.bartClient._database.stations);
 
 function findRoute() {
@@ -44,42 +45,50 @@ function findRoute() {
 		});
 		return;
 	}
-	if (selectedBartStations.value.from === selectedBartStations.value.to) {
-		Swal.fire({
-			icon: "error",
-			title: "Oops...",
-			text: "Origin and destination stations cannot be the same!",
-		});
-		return;
+	userRouteDisplayManager.value.route = [];
+	for (const stationAbbr of routeFindingAlgorithm({ bartStations: bartClient.bartClient._database.stations, bartRoutes: bartClient.bartClient._database.routes }, selectedBartStations.value.from.abbr, selectedBartStations.value.to.abbr)) {
+		userRouteDisplayManager.value.route.push(bartClient.bartClient.getStationFromAbbr(stationAbbr))
 	}
-	console.log(routeFindingAlgorithm({ bartStations: bartClient.bartClient._database.stations, bartRoutes: bartClient.bartClient._database.routes }, selectedBartStations.value.from.abbr, selectedBartStations.value.to.abbr));
-	//show routes to user
-	userRouteDisplayManager.value.setRoute(routeFindingAlgorithm({ bartStations: bartClient.bartClient._database.stations, bartRoutes: bartClient.bartClient._database.routes }, selectedBartStations.value.from.abbr, selectedBartStations.value.to.abbr));
+
 	userRouteDisplayManager.value.showRoutes();
 }
 let bartMapElem = ref();
-function testFunction() {
-	console.log(routeFindingAlgorithm({ bartStations: bartClient.bartClient._database.stations, bartRoutes: bartClient.bartClient._database.routes }, selectedBartStations.value.from.abbr, selectedBartStations.value.to.abbr));
-}
+// function testFunction() {
+// 	console.log(routeFindingAlgorithm({ bartStations: bartClient.bartClient._database.stations, bartRoutes: bartClient.bartClient._database.routes }, selectedBartStations.value.from.abbr, selectedBartStations.value.to.abbr));
+// }
 
 function testFunction2() {
-	console.log(userRouteDisplayManager.value)
+	bartClient.bartClient.getStations().map(m => bartMapElem.value.addMarker({
+		name: m.name,
+		desc: m.abbr,
+		loc: [m.gtfs_latitude, m.gtfs_longitude],
+	}));
+
 }
 
 </script>
 <template>
 
-	{{ selectedBartStations }}
+	<!-- {{ selectedBartStations }} -->
 	<!-- {{ bartClient.bartClient._database.stations }} -->
 	<div v-if="!bartClientInitialized">
 		<ProgressBar mode="indeterminate" />
 	</div>
 	<Dialog class="userRoutesDisplayDialog" header=" Your Route" v-model:visible="userRouteDisplayManager.displayModal"
 		:maximizable="true" :dismissableMask="true" :modal="true">
-		<p class="m-0">{{ userRouteDisplayManager.route }}</p>
+		<!-- <ScrollPanel style="width: 100%; height: 100%; overflow-x hidden !important;" class="custom"> -->
+
+		<Timeline :value="userRouteDisplayManager.route" align="alternate">
+			<template #content="slotProps">
+				{{ slotProps.item.name }}
+			</template>
+		</Timeline>
+		<!-- <p class="m-0">{{ userRouteDisplayManager.route }}</p> -->
+		<!-- </ScrollPanel> -->
+
 		<template #footer>
 			<!-- <Button label="No" icon="pi pi-times" @click="userRouteDisplayManager.hideRoutes" class="p-button-text" /> -->
-			<Button label="Ok" icon="pi pi-check" @click="userRouteDisplayManager.hideRoutes" />
+			<Button label="Ok" icon="pi pi-check" @click="userRouteDisplayManager.hideRoutes()" />
 		</template>
 
 	</Dialog>
@@ -115,6 +124,7 @@ function testFunction2() {
 								</template>
 							</Dropdown>
 						</div>
+						<div style="padding:.5em"></div>
 						<div class="field col">
 							<!-- To Station -->
 							<Dropdown class="stationSelectorMenu" v-model="selectedBartStations.to"
@@ -143,8 +153,10 @@ function testFunction2() {
 					</BlockUI>
 				</div>
 				<div class="card">
-					<div class="field col">
-						<Button class="btn btn-primary" @click="findRoute">Find Route</Button>
+					<div class="field col text-center">
+						<div class="d-flex justify-content-center">
+							<Button class="btn btn-primary" @click="findRoute">Find Route</Button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -154,26 +166,9 @@ function testFunction2() {
 			</div>
 		</div>
 	</div>
-	<Button label="Test" @click="testFunction" />
-	<Button label="Test2" @click="testFunction2" />
 </template>
 
 <style lang="scss" scoped>
-//credit to primevue for this class
-.card {
-	background-color: var(--surface-card);
-	padding: 1.5rem;
-	color: var(--surface-900);
-	margin-bottom: 1rem;
-	border-radius: 12px;
-	box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.02), 0px 0px 2px rgba(0, 0, 0, 0.05),
-		0px 1px 4px rgba(0, 0, 0, 0.08) !important;
-
-	&.card-w-title {
-		padding-bottom: 2rem;
-	}
-}
-
 #bartUserInputGrid {
 	margin-top: 2em;
 }
@@ -182,12 +177,8 @@ function testFunction2() {
 	height: 0;
 	width: 100%;
 	padding-bottom: 100%;
-	// padding:0;
-	// margin:0;
-	// width:100%;
-	// height:100%;
-	// // min-height:50em;
-	// height:auto;
+	border: 8px double var(--surface-border);
+	border-radius: 40px;
 }
 
 .stationSelectorMenu {
